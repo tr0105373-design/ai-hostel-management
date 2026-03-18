@@ -1,0 +1,18 @@
+<h2>Room Occupancy</h2>
+
+<table border="1">
+<tr>
+<th>Room Number</th>
+<th>Capacity</th>
+<th>Occupied</th>
+</tr>
+
+{% for r in rooms %}
+<tr>
+<td>{{ r.room_number }}</td>
+<td>{{ r.capacity }}</td>
+<td>{{ r.occupied }}</td>
+</tr>
+{% endfor %}
+
+</table>

@@ -1,0 +1,31 @@
+<h2>Visitor Log</h2>
+
+<h3>AI Monitoring</h3>
+
+{% for f in frequent_visitors %}
+
+<p>⚠ Frequent Visitor Detected: {{ f.visitor_name }} ({{ f.count }} visits)</p>
+
+{% endfor %}
+
+<table border="1">
+
+<tr>
+<th>Student</th>
+<th>Visitor Name</th>
+<th>Purpose</th>
+<th>Entry Time</th>
+</tr>
+
+{% for v in visitors %}
+
+<tr>
+<td>{{ v.student.name }}</td>
+<td>{{ v.visitor_name }}</td>
+<td>{{ v.purpose }}</td>
+<td>{{ v.entry_time }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
