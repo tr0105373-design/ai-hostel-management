@@ -18,6 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from hostel_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +35,7 @@ urlpatterns = [
     path('fee/', views.fee, name='fee'),
     path('pay_fee/<int:id>/', views.pay_fee, name='pay_fee'),
     path('rooms/', views.room_list, name='rooms'),
-    path('visitors/', views.visitor_list, name='visitors'),
-]
+    path('visitors/', views.visitor_list, name='visitors')
+
+  ] +   static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
