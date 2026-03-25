@@ -1,31 +1,85 @@
-<h2>Visitor Log</h2>
+{% extends 'hostel_app/base.html' %}
 
-<h3>AI Monitoring</h3>
+{% block content %}
 
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+">
+    <div>
+        <h2 style="font-family:'Playfair Display',serif; color:white; font-size:1.8rem; margin-bottom:6px;">🚪 Visitor Log</h2>
+        <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">AI Monitoring — Real-time visitor tracking</p>
+    </div>
+</div>
+
+<!-- AI Alerts -->
 {% for f in frequent_visitors %}
-
-<p>⚠ Frequent Visitor Detected: {{ f.visitor_name }} ({{ f.count }} visits)</p>
-
+<div style="
+    background: #fff8e1;
+    border-left: 4px solid #f5c518;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(245,197,24,0.15);
+">
+    <span style="font-size:1.3rem;">⚠️</span>
+    <div>
+        <strong style="color:#7a6000;">Frequent Visitor Detected</strong>
+        <p style="color:#9a7c00; font-size:0.85rem; margin:2px 0 0;">{{ f.visitor_name }} — {{ f.count }} visits</p>
+    </div>
+</div>
 {% endfor %}
 
-<table border="1">
+<!-- Table -->
+<div style="
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(15,27,45,0.08);
+    margin-top: 10px;
+">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background: #0f1b2d;">
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Student</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Visitor Name</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Purpose</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Entry Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in visitors %}
+            <tr style="border-bottom:1px solid #f0f4f8; transition: background 0.2s;"
+                onmouseover="this.style.background='#f8fbff'"
+                onmouseout="this.style.background='white'">
+                <td style="padding:14px 20px; color:#0f1b2d; font-weight:500;">{{ v.student.name }}</td>
+                <td style="padding:14px 20px; color:#1a2636;">{{ v.visitor_name }}</td>
+                <td style="padding:14px 20px;">
+                    <span style="background:#e8f8f5; color:#00a68a; padding:4px 12px; border-radius:20px; font-size:0.82rem; font-weight:500;">
+                        {{ v.purpose }}
+                    </span>
+                </td>
+                <td style="padding:14px 20px; color:#6b7f96; font-size:0.88rem;">{{ v.entry_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<tr>
-<th>Student</th>
-<th>Visitor Name</th>
-<th>Purpose</th>
-<th>Entry Time</th>
-</tr>
+    {% if not visitors %}
+    <div style="text-align:center; padding:50px; color:#6b7f96;">
+        <div style="font-size:2.5rem; margin-bottom:10px;">🚪</div>
+        <p style="font-weight:500;">Koi visitor nahi abhi</p>
+    </div>
+    {% endif %}
+</div>
 
-{% for v in visitors %}
-
-<tr>
-<td>{{ v.student.name }}</td>
-<td>{{ v.visitor_name }}</td>
-<td>{{ v.purpose }}</td>
-<td>{{ v.entry_time }}</td>
-</tr>
-
-{% endfor %}
-
-</table>
+{% endblock %}

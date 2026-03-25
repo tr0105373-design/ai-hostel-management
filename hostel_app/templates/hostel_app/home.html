@@ -1,0 +1,71 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+
+<!-- Hero Banner -->
+<div style="
+    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 60%, #0a2840 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    margin-bottom: 35px;
+    overflow: hidden;
+">
+    <h1 style="font-family:'Playfair Display',serif; font-size:2.2rem; color:white; margin-bottom:10px;">
+        Welcome to <span style="color:#00c9a7;">AI Hostel</span> Management
+    </h1>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.95rem;">
+        Manage students, rooms, fees & more — all in one place.
+    </p>
+</div>
+
+<!-- Cards -->
+<p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:2px; color:#6b7f96; margin-bottom:18px;">Quick Access</p>
+
+<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:22px;">
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">📊</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Dashboard</h3>
+        <a href="/dashboard/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">➕</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Add Student</h3>
+        <a href="/add-student/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Students</h3>
+        <a href="/student/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">🛏️</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Rooms</h3>
+        <a href="/rooms/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">💰</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Fees</h3>
+        <a href="/fees/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">📝</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Complaint</h3>
+        <a href="/complaint/" class="btn">Open</a>
+    </div>
+
+    <div class="card">
+        <div style="font-size:2rem; margin-bottom:12px;">🚪</div>
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Visitor</h3>
+        <a href="/visitor/" class="btn">Open</a>
+    </div>
+
+</div>
+
+{% endblock %}

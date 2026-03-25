@@ -1,43 +1,180 @@
-<form method="GET">
-<input type="text" name="q" placeholder="Search Student">
-<select name="course">
-<option value="">Filter by Course</option>
-<option value="BCA">BCA</option>
-<option value="BBA">BBA</option>
-<option value="MBA">MBA</option>
-<option value="MCA">MCA</option>
-<option value="B.ED">B.ED</option>
-</select>
-<button type="submit">Search</button>
+{% extends 'hostel_app/base.html' %}
 
+{% block content %}
+
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+">
+    <div>
+        <h2 style="font-family:'Playfair Display',serif; color:white; font-size:1.8rem; margin-bottom:6px;">🎓 Student List</h2>
+        <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">Sabhi registered students ka record</p>
+    </div>
+    <a href="/add-student/" style="
+        padding:11px 24px;
+        background:#00c9a7;
+        color:white;
+        text-decoration:none;
+        border-radius:10px;
+        font-size:0.88rem;
+        font-weight:600;
+    ">➕ Add Student</a>
+</div>
+
+<!-- Search & Filter -->
+<form method="GET">
+<div style="
+    background:white;
+    border-radius:16px;
+    padding:20px 24px;
+    box-shadow:0 2px 16px rgba(15,27,45,0.08);
+    margin-bottom:24px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+">
+    <input type="text" name="q" placeholder="🔍 Search student..."
+        style="
+            flex:1; min-width:180px;
+            padding:11px 16px;
+            border:2px solid #e0e8f0;
+            border-radius:10px;
+            font-size:0.9rem;
+            font-family:'DM Sans',sans-serif;
+            color:#0f1b2d;
+            outline:none;
+        ">
+
+    <select name="course" style="
+        padding:11px 16px;
+        border:2px solid #e0e8f0;
+        border-radius:10px;
+        font-size:0.9rem;
+        font-family:'DM Sans',sans-serif;
+        color:#0f1b2d;
+        outline:none;
+        background:white;
+    ">
+        <option value="">📚 Filter by Course</option>
+        <option value="BCA">BCA</option>
+        <option value="BBA">BBA</option>
+        <option value="MBA">MBA</option>
+        <option value="MCA">MCA</option>
+        <option value="B.ED">B.ED</option>
+    </select>
+
+    <button type="submit" style="
+        padding:11px 24px;
+        background:#0f1b2d;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:0.9rem;
+        font-weight:600;
+        cursor:pointer;
+        font-family:'DM Sans',sans-serif;
+    ">Search</button>
+</div>
 </form>
 
-<h2>Student List</h2>
+<!-- Students Table -->
+<div style="
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 2px 16px rgba(15,27,45,0.08);
+">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background:#0f1b2d;">
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Name</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Email</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Phone</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Course</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Room</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr style="border-bottom:1px solid #f0f4f8;"
+                onmouseover="this.style.background='#f8fbff'"
+                onmouseout="this.style.background='white'">
 
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-<th>Course</th>
-<th>Room</th>
-<th>Action</th>
-</tr>
+                <td style="padding:14px 20px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="
+                            width:36px; height:36px;
+                            background:linear-gradient(135deg,#00c9a7,#0f1b2d);
+                            border-radius:50%;
+                            display:flex; align-items:center; justify-content:center;
+                            color:white; font-weight:700; font-size:0.85rem;
+                            flex-shrink:0;
+                        ">
+                            {{ student.name|slice:":1"|upper }}
+                        </div>
+                        <span style="font-weight:600; color:#0f1b2d;">{{ student.name }}</span>
+                    </div>
+                </td>
 
-{% for student in students %}
-<tr>
-<td>{{ student.name }}</td>
-<td>{{ student.email }}</td>
-<td>{{ student.phone }}</td>
-<td>{{ student.course }}</td>
-<td>{{ student.room_number }}</td>
+                <td style="padding:14px 20px; color:#6b7f96; font-size:0.88rem;">{{ student.email }}</td>
 
-<td>
-<a href="/edit_student/{{ student.id }}/">Edit</a>
-<a href="/delete_student/{{ student.id }}/">Delete</a>
-</td>
+                <td style="padding:14px 20px; color:#1a2636; font-size:0.88rem;">{{ student.phone }}</td>
 
-</tr>
-{% endfor %}
+                <td style="padding:14px 20px;">
+                    <span style="background:#e8f0fe; color:#3a5bd9; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">
+                        {{ student.course }}
+                    </span>
+                </td>
 
-</table>
+                <td style="padding:14px 20px;">
+                    <span style="background:#e8f8f5; color:#00a68a; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">
+                        🚪 {{ student.room_number }}
+                    </span>
+                </td>
+
+                <td style="padding:14px 20px;">
+                    <div style="display:flex; gap:8px;">
+                        <a href="/edit_student/{{ student.id }}/" style="
+                            padding:7px 16px;
+                            background:#e8f0fe;
+                            color:#3a5bd9;
+                            text-decoration:none;
+                            border-radius:8px;
+                            font-size:0.82rem;
+                            font-weight:600;
+                        ">✏️ Edit</a>
+
+                        <a href="/delete_student/{{ student.id }}/" style="
+                            padding:7px 16px;
+                            background:#fde8e8;
+                            color:#c0392b;
+                            text-decoration:none;
+                            border-radius:8px;
+                            font-size:0.82rem;
+                            font-weight:600;
+                        ">🗑️ Delete</a>
+                    </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not students %}
+    <div style="text-align:center; padding:50px; color:#6b7f96;">
+        <div style="font-size:2.5rem; margin-bottom:10px;">🎓</div>
+        <p style="font-weight:500;">Koi student nahi mila</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from hostel_app import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('add_student/', views.add_student, name='add_student'),
-    path('students/', views.student_list, name='student_list'),
+    path('student/', views.student_list, name='student_list'),
     path('edit_student/<int:id>/', views.edit_student, name='edit_student'),
     path('delete_student/<int:id>/', views.delete_student, name='delete_student'),
     path('dashboard/', views.dashboard, name='dashboard'),
@@ -35,7 +35,6 @@ urlpatterns = [
     path('fee/', views.fee, name='fee'),
     path('pay_fee/<int:id>/', views.pay_fee, name='pay_fee'),
     path('rooms/', views.room_list, name='rooms'),
-    path('visitors/', views.visitor_list, name='visitors')
-
-  ] +   static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+    path('visitors/', views.visitor, name='visitors'),
+    path('', include('hostel_app.urls')),
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

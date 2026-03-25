@@ -1,18 +1,83 @@
-<h2>Room Occupancy</h2>
+{% extends 'hostel_app/base.html' %}
 
-<table border="1">
-<tr>
-<th>Room Number</th>
-<th>Capacity</th>
-<th>Occupied</th>
-</tr>
+{% block content %}
 
-{% for r in rooms %}
-<tr>
-<td>{{ r.room_number }}</td>
-<td>{{ r.capacity }}</td>
-<td>{{ r.occupied }}</td>
-</tr>
-{% endfor %}
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+">
+    <h2 style="font-family:'Playfair Display',serif; color:white; font-size:1.8rem; margin-bottom:6px;">🛏️ Room Occupancy</h2>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">All rooms ka current status</p>
+</div>
 
-</table>
+<!-- Table -->
+<div style="
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(15,27,45,0.08);
+">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background: #0f1b2d;">
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Room Number</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Capacity</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Occupied</th>
+                <th style="padding:16px 20px; text-align:left; color:#00c9a7; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in rooms %}
+            <tr style="border-bottom:1px solid #f0f4f8;"
+                onmouseover="this.style.background='#f8fbff'"
+                onmouseout="this.style.background='white'">
+
+                <td style="padding:14px 20px;">
+                    <span style="font-family:'Playfair Display',serif; font-size:1.1rem; color:#0f1b2d; font-weight:700;">
+                        🚪 {{ r.room_number }}
+                    </span>
+                </td>
+
+                <td style="padding:14px 20px; color:#1a2636;">
+                    <span style="background:#e8f0fe; color:#3a5bd9; padding:4px 12px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                        {{ r.capacity }} beds
+                    </span>
+                </td>
+
+                <td style="padding:14px 20px; color:#1a2636; font-weight:500;">
+                    {{ r.occupied }} / {{ r.capacity }}
+                </td>
+
+                <td style="padding:14px 20px;">
+                    {% if r.occupied == r.capacity %}
+                        <span style="background:#fde8e8; color:#c0392b; padding:4px 14px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                            🔴 Full
+                        </span>
+                    {% elif r.occupied == 0 %}
+                        <span style="background:#e8f8f5; color:#00a68a; padding:4px 14px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                            🟢 Available
+                        </span>
+                    {% else %}
+                        <span style="background:#fff8e1; color:#d4a017; padding:4px 14px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                            🟡 Partial
+                        </span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not rooms %}
+    <div style="text-align:center; padding:50px; color:#6b7f96;">
+        <div style="font-size:2.5rem; margin-bottom:10px;">🛏️</div>
+        <p style="font-weight:500;">Koi room nahi mila</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

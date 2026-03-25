@@ -1,17 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Student</title>
-</head>
-<body>
+{% extends 'hostel_app/base.html' %}
 
-<h2>Add Student</h2>
+{% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+">
+    <h2 style="font-family:'Playfair Display',serif; color:white; font-size:1.8rem; margin-bottom:6px;">➕ Add Student</h2>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">Naya student hostel mein register karo</p>
+</div>
 
-</body>
-</html>
+<!-- Form Card -->
+<div style="
+    background:white;
+    border-radius:16px;
+    padding:35px;
+    box-shadow:0 2px 16px rgba(15,27,45,0.08);
+    max-width:600px;
+">
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Django form fields styled -->
+        <div style="margin-bottom:20px;">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" style="
+            padding:13px 35px;
+            background:#00c9a7;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:0.95rem;
+            font-weight:600;
+            cursor:pointer;
+            font-family:'DM Sans',sans-serif;
+            transition: background 0.2s;
+        "
+        onmouseover="this.style.background='#00a68a'"
+        onmouseout="this.style.background='#00c9a7'">
+            💾 Save Student
+        </button>
+
+    </form>
+</div>
+
+<!-- Form Fields Ko Style Karne Ke Liye -->
+<style>
+    /* Django form ke p tags aur inputs */
+    form p {
+        margin-bottom: 16px;
+    }
+    form p label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #6b7f96;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        font-family: 'DM Sans', sans-serif;
+    }
+    form p input,
+    form p select,
+    form p textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e0e8f0;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-family: 'DM Sans', sans-serif;
+        color: #0f1b2d;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+    form p input:focus,
+    form p select:focus,
+    form p textarea:focus {
+        border-color: #00c9a7;
+    }
+</style>
+
+{% endblock %}
