@@ -1,0 +1,43 @@
+<form method="GET">
+<input type="text" name="q" placeholder="Search Student">
+<select name="course">
+<option value="">Filter by Course</option>
+<option value="BCA">BCA</option>
+<option value="BBA">BBA</option>
+<option value="MBA">MBA</option>
+<option value="MCA">MCA</option>
+<option value="B.ED">B.ED</option>
+</select>
+<button type="submit">Search</button>
+
+</form>
+
+<h2>Student List</h2>
+
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Course</th>
+<th>Room</th>
+<th>Action</th>
+</tr>
+
+{% for student in students %}
+<tr>
+<td>{{ student.name }}</td>
+<td>{{ student.email }}</td>
+<td>{{ student.phone }}</td>
+<td>{{ student.course }}</td>
+<td>{{ student.room_number }}</td>
+
+<td>
+<a href="/edit_student/{{ student.id }}/">Edit</a>
+<a href="/delete_student/{{ student.id }}/">Delete</a>
+</td>
+
+</tr>
+{% endfor %}
+
+</table>

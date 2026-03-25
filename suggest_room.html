@@ -1,0 +1,44 @@
+<h2>Hostel Dashboard</h2>
+
+<a href="/add_student/">Add Student</a> |
+<a href="/students/">Students</a> |
+<a href="/rooms/">Rooms</a> |
+<a href="/fee/">Fees</a> |
+<a href="/complaint/">Complaints</a>
+<a href="/visitors/">Visitors</a>
+
+<br><br>
+
+<div style="display:flex; gap:20px;">
+
+<div style="background:#4CAF50; color:white; padding:20px; width:200px;">
+<h3>Total Students</h3>
+<h1>{{ students }}</h1>
+</div>
+
+<div style="background:#2196F3; color:white; padding:20px; width:200px;">
+<h3>Total Rooms</h3>
+<h1>{{ rooms }}</h1>
+</div>
+
+<div style="background:#f44336; color:white; padding:20px; width:200px;">
+<h3>Total Complaints</h3>
+<h1>{{ complaints }}</h1>
+</div>
+
+<div style="background:#9C27B0; color:white; padding:20px; width:200px;">
+<h3>Pending Fees</h3>
+<h1>{{ fees }}</h1>
+</div>
+
+<div class="card" style="background:orange;color:white; padding:20px; width:200px;">
+<h3>High Priority Complaints</h3>
+<h2>{{ high_priority }}</h2>
+</div>
+
+<div class="card" style="background:green;color:white; padding:20px; width:200px;">
+<h3>Resolved Complaints</h3>
+<h2>{{ resolved }}</h2>
+</div>
+
+</div>

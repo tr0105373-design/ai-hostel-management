@@ -1,0 +1,59 @@
+<h2>Student Complaint</h2>
+
+<form method="GET">
+    <input type="text" name="q" placeholder="Search complaint">
+    <button type="submit">Search</button>
+</form>
+
+<br>
+
+
+<form method="POST">
+{% csrf_token %}
+
+<label>Select Student:</label>
+
+<select name="student">
+{% for s in students %}
+<option value="{{ s.id }}">{{ s.name }}</option>
+{% endfor %}
+</select>
+
+<br><br>
+
+<textarea name="message" placeholder="Enter complaint"></textarea>
+
+<br><br>
+
+<button type="submit">Submit Complaint</button>
+
+<h3>All Complaints</h3>
+
+<table border="1">
+<tr>
+    <th>Student</th>
+    <th>Complaint</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Category</th>
+    <th>Action</th>
+
+</tr>
+
+{% for c in complaints %}
+<tr>
+    <td>{{ c.student.name }}</td>
+    <td>{{ c.message }}</td>
+    <td>{{ c.status }}</td>
+    <td>{{ c.priority }}</td>
+    <td>{{ c.category }}</td>
+
+
+    <td><a href="/resolve/{{c.id}}">Resolve</a></td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</form>
