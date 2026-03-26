@@ -27,7 +27,7 @@
         <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
         <div style="font-size:2rem; margin-bottom:8px;">🎓</div>
         <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Total Students</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{ total_students|default:"—" }}</p>
+        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{students|default:"—" }}</p>
     </div>
 
     <div style="
@@ -41,7 +41,7 @@
         <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
         <div style="font-size:2rem; margin-bottom:8px;">🛏️</div>
         <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Total Rooms</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{ total_rooms|default:"—" }}</p>
+        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{rooms|default:"—" }}</p>
     </div>
 
     <div style="
@@ -55,7 +55,7 @@
         <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
         <div style="font-size:2rem; margin-bottom:8px;">📝</div>
         <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Complaints</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{ total_complaints|default:"—" }}</p>
+        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{complaints|default:"—" }}</p>
     </div>
 
     <div style="
@@ -69,7 +69,7 @@
         <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
         <div style="font-size:2rem; margin-bottom:8px;">💰</div>
         <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Pending Fees</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{ pending_fees|default:"—" }}</p>
+        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{fees|default:"—" }}</p>
     </div>
 
 </div>
