@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login — AI Hostel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fraunces:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Decorative circles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -150px; right: -150px;
+            width: 400px; height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -100px; left: -100px;
+            width: 300px; height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .login-wrapper {
+            display: flex;
+            width: 860px;
+            min-height: 520px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            animation: slideUp 0.6s cubic-bezier(0.34,1.56,0.64,1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Left Panel */
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #1b4332, #2d6a4f);
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .login-left .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .login-left .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .login-left h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .login-left .tagline {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .login-left .welcome {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .login-left .desc {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .feature-item i {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Right Panel */
+        .login-right {
+            width: 380px;
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            color: #1b2d25;
+            margin-bottom: 6px;
+        }
+
+        .login-right p {
+            color: #6b8c78;
+            font-size: 0.88rem;
+            margin-bottom: 32px;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6b8c78;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b8c78;
+            font-size: 0.9rem;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 13px 16px 13px 40px;
+            border: 2px solid #d4e8da;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: #1b2d25;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrap input:focus {
+            border-color: #52b788;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2d6a4f, #52b788);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(45,106,79,0.35);
+        }
+
+        .error-msg {
+            background: #fde8ea;
+            color: #e63946;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.78rem;
+            color: #6b8c78;
+        }
+
+        @media (max-width: 700px) {
+            .login-wrapper { flex-direction: column; width: 95%; }
+            .login-left { padding: 32px 24px; }
+            .login-right { width: 100%; padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+    <!-- Left -->
+    <div class="login-left">
+        <div class="logo">
+            <div class="logo-icon">🏠</div>
+            <div>
+                <h1>AI Hostel</h1>
+                <div class="tagline">Management System</div>
+            </div>
+        </div>
+        <div class="welcome">Manage. Monitor. Control.</div>
+        <div class="desc">Sign in to manage your hostel — students, rooms, fees, complaints & more from one place.</div>
+        <div class="feature-list">
+            <div class="feature-item"><i class="fas fa-users"></i> Student Management</div>
+            <div class="feature-item"><i class="fas fa-bed"></i> Room Allotment</div>
+            <div class="feature-item"><i class="fas fa-money-bill-wave"></i> Fee Tracking</div>
+            <div class="feature-item"><i class="fas fa-comment-dots"></i> AI Complaint Priority</div>
+        </div>
+    </div>
+
+    <!-- Right -->
+    <div class="login-right">
+        <h2>Sign In</h2>
+        <p>Enter your credentials to continue</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-msg">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-field">
+                <label>Username</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Enter username" required autofocus>
+                </div>
+            </div>
+            <div class="form-field">
+                <label>Password</label>
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Enter password" required>
+                </div>
+            </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+        </form>
+
+        <div class="login-footer">
+            © 2026 AI Hostel Management System
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

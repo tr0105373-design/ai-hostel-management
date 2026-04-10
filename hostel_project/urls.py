@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('', views.home, name='home'),
     path('add_student/', views.add_student, name='add_student'),
     path('student/', views.student_list, name='student_list'),
     path('edit_student/<int:id>/', views.edit_student, name='edit_student'),
@@ -37,4 +37,11 @@ urlpatterns = [
     path('rooms/', views.room_list, name='rooms'),
     path('visitors/', views.visitor, name='visitors'),
     path('', include('hostel_app.urls')),
+    path('student-login/', views.student_login, name='student_login'),
+    path('student-dashboard/', views.student_dashboard, name='student_dashboard'),
+    path('student-profile/', views.student_profile, name='student_profile'),
+    path('my-room/', views.my_room, name='my_room'),
+    path('student-complaint/', views.student_complaint, name='student_complaint'),
+    path('visitor-request/', views.visitor_request, name='visitor_request'),
+    path('my-fees/', views.my_fees, name='my_fees'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

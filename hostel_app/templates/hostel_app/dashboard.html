@@ -2,94 +2,437 @@
 
 {% block content %}
 
-<!-- Hero Banner -->
-<div style="
-    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
-    border-radius: 16px;
-    padding: 40px;
-    margin-bottom: 30px;
-">
-    <h2 style="font-family:'Playfair Display',serif; color:white; font-size:2rem; margin-bottom:8px;">📊 Dashboard</h2>
-    <p style="color:rgba(255,255,255,0.55); font-size:0.95rem;">Welcome to AI Hostel Management System</p>
+<style>
+     .dash-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px 20px;
+        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
+        border: 1px solid #d4e8da;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(45,106,79,0.15);
+    }
+
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+    }
+
+    .stat-card.green::after { background: linear-gradient(90deg, #2d6a4f, #52b788); }
+    .stat-card.blue::after  { background: linear-gradient(90deg, #457b9d, #a8dadc); }
+    .stat-card.orange::after{ background: linear-gradient(90deg, #f4a261, #e76f51); }
+    .stat-card.red::after   { background: linear-gradient(90deg, #e63946, #ff8fa3); }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 14px;
+    } 
+
+    .stat-card.green .stat-icon { background: #d8f3dc; }
+    .stat-card.blue .stat-icon  { background: #e0f0f8; }
+    .stat-card.orange .stat-icon{ background: #fdecd5; }
+    .stat-card.red .stat-icon   { background: #fde8ea; }
+
+    .stat-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6b8c78;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .stat-value {
+        font-family: 'Fraunces', serif;
+        font-size: 2.2rem;
+        color: #1b2d25;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .stat-sub {
+        font-size: 0.78rem;
+        color: #6b8c78;
+        margin-top: 6px;
+    }
+
+    Charts Section
+    .charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 28px;
+    }
+
+    .chart-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
+        border: 1px solid #d4e8da;
+    }
+
+    .chart-title {
+        font-family: 'Fraunces', serif;
+        font-size: 1.05rem;
+        color: #1b2d25;
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    canvas {
+        max-height: 220px;
+    }
+
+    Admin Panel
+     .admin-panel {
+        background: white;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
+        border: 1px solid #d4e8da;
+        margin-bottom: 28px;
+    }
+
+    .admin-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f0f7f2;
+    } 
+
+     .admin-panel-header h3 {
+        font-family: 'Fraunces', serif;
+        font-size: 1.1rem;
+        color: #1b2d25;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .admin-badge-pill {
+        background: #d8f3dc;
+        color: #2d6a4f;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 0.5px;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .admin-action {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 18px;
+        border: 2px solid #f0f7f2;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.2s;
+        background: #fafcfb;
+    }
+
+     .admin-action:hover {
+        border-color: #52b788;
+        background: #f0faf4;
+        transform: translateY(-2px);
+    }
+
+    .admin-action .aa-icon {
+        width: 40px;
+        height: 40px;
+        background: #d8f3dc;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+    }
+
+    .admin-action h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1b2d25;
+    }
+
+    .admin-action p {
+        font-size: 0.78rem;
+        color: #6b8c78;
+    }
+
+    /* Quick links */
+    .quick-links {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
+        border: 1px solid #d4e8da;
+    }
+
+    .ql-title {
+        font-family: 'Fraunces', serif;
+        font-size: 1rem;
+        color: #1b2d25;
+        margin-bottom: 16px;
+    }
+
+    .ql-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    } 
+
+    .ql-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .ql-btn.dark  { background: #1b4332; color: white; }
+    .ql-btn.green { background: #2d6a4f; color: white; }
+    .ql-btn.teal  { background: #52b788; color: white; }
+    .ql-btn.orange{ background: #f4a261; color: white; }
+    .ql-btn.blue  { background: #457b9d; color: white; }
+    .ql-btn.red   { background: #e63946; color: white; }
+
+    .ql-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+        .dash-grid { grid-template-columns: repeat(2, 1fr); }
+        .charts-grid { grid-template-columns: 1fr; }
+        .admin-grid { grid-template-columns: repeat(2, 1fr); }
+    } 
+    
+</style>
+
+<!-- Page Header -->
+<div style="margin-bottom: 28px;">
+    <h2 style="font-family:'Fraunces',serif; font-size:1.7rem; color:#1b2d25; margin-bottom:4px;">📊 Dashboard</h2>
+    <p style="color:#6b8c78; font-size:0.9rem;">Welcome back! Here's what's happening at your hostel.</p>
 </div>
 
 <!-- Stats Cards -->
-<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:20px; margin-bottom:30px;">
-
-    <div style="
-        background:white;
-        border-radius:16px;
-        padding:24px;
-        box-shadow:0 2px 16px rgba(15,27,45,0.08);
-        position:relative;
-        overflow:hidden;
-    ">
-        <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
-        <div style="font-size:2rem; margin-bottom:8px;">🎓</div>
-        <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Total Students</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{students|default:"—" }}</p>
+<div class="dash-grid">
+    <div class="stat-card green">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value">{{ students|default:"0" }}</div>
+        <div class="stat-sub">Currently enrolled</div>
     </div>
-
-    <div style="
-        background:white;
-        border-radius:16px;
-        padding:24px;
-        box-shadow:0 2px 16px rgba(15,27,45,0.08);
-        position:relative;
-        overflow:hidden;
-    ">
-        <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
-        <div style="font-size:2rem; margin-bottom:8px;">🛏️</div>
-        <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Total Rooms</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{rooms|default:"—" }}</p>
+    <div class="stat-card blue">
+        <div class="stat-icon">🛏️</div>
+        <div class="stat-label">Total Rooms</div>
+        <div class="stat-value">{{ rooms|default:"0" }}</div>
+        <div class="stat-sub">Available rooms</div>
     </div>
-
-    <div style="
-        background:white;
-        border-radius:16px;
-        padding:24px;
-        box-shadow:0 2px 16px rgba(15,27,45,0.08);
-        position:relative;
-        overflow:hidden;
-    ">
-        <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
-        <div style="font-size:2rem; margin-bottom:8px;">📝</div>
-        <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Complaints</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{complaints|default:"—" }}</p>
+    <div class="stat-card orange">
+        <div class="stat-icon">📝</div>
+        <div class="stat-label">Complaints</div>
+        <div class="stat-value">{{ complaints|default:"0" }}</div>
+        <div class="stat-sub">{{ high_priority|default:"0" }} high priority</div>
     </div>
-
-    <div style="
-        background:white;
-        border-radius:16px;
-        padding:24px;
-        box-shadow:0 2px 16px rgba(15,27,45,0.08);
-        position:relative;
-        overflow:hidden;
-    ">
-        <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#00c9a7,#f5c518);"></div>
-        <div style="font-size:2rem; margin-bottom:8px;">💰</div>
-        <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Pending Fees</p>
-        <p style="font-family:'Playfair Display',serif; font-size:2rem; color:#0f1b2d; font-weight:700;">{{fees|default:"—" }}</p>
+    <div class="stat-card red">
+        <div class="stat-icon">💰</div>
+        <div class="stat-label">Pending Fees</div>
+        <div class="stat-value">{{ fees|default:"0" }}</div>
+        <div class="stat-sub">Awaiting payment</div>
     </div>
+</div>
 
+<!-- Charts -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <div class="chart-title"><i class="fas fa-chart-bar" style="color:#52b788;"></i> Hostel Overview</div>
+        <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-card">
+        <div class="chart-title"><i class="fas fa-chart-pie" style="color:#f4a261;"></i> Complaints Status</div>
+        <canvas id="pieChart"></canvas>
+    </div>
+</div>
+
+<!-- Admin Panel -->
+<div class="admin-panel">
+    <div class="admin-panel-header">
+        <h3><i class="fas fa-user-shield" style="color:#2d6a4f;"></i> Admin Panel</h3>
+        <span class="admin-badge-pill">⚡ Admin Access</span>
+    </div>
+    <div class="admin-grid">
+        <a href="/add-student/" class="admin-action">
+            <div class="aa-icon">➕</div>
+            <h4>Add Student</h4>
+            <p>Register new student</p>
+        </a>
+        <a href="/students/" class="admin-action">
+            <div class="aa-icon">👥</div>
+            <h4>Manage Students</h4>
+            <p>View, edit, delete</p>
+        </a>
+        <a href="/rooms/" class="admin-action">
+            <div class="aa-icon">🛏️</div>
+            <h4>Room Allotment</h4>
+            <p>Manage room status</p>
+        </a>
+        <a href="/fees/" class="admin-action">
+            <div class="aa-icon">💰</div>
+            <h4>Fee Management</h4>
+            <p>Track & collect fees</p>
+        </a>
+        <a href="/complaint/" class="admin-action">
+            <div class="aa-icon">📝</div>
+            <h4>Complaints</h4>
+            <p>Resolve & prioritize</p>
+        </a>
+        <a href="/visitor/" class="admin-action">
+            <div class="aa-icon">🚪</div>
+            <h4>Visitor Log</h4>
+            <p>Track all visitors</p>
+        </a>
+    </div>
 </div>
 
 <!-- Quick Links -->
-<div style="
-    background:white;
-    border-radius:16px;
-    padding:30px;
-    box-shadow:0 2px 16px rgba(15,27,45,0.08);
-">
-    <h3 style="font-family:'Playfair Display',serif; color:#0f1b2d; margin-bottom:20px; font-size:1.2rem;">⚡ Quick Links</h3>
-    <div style="display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="/add-student/" style="padding:10px 22px; background:#0f1b2d; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">➕ Add Student</a>
-        <a href="/students/" style="padding:10px 22px; background:#00c9a7; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">🎓 Students</a>
-        <a href="/rooms/" style="padding:10px 22px; background:#0f1b2d; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">🛏️ Rooms</a>
-        <a href="/fees/" style="padding:10px 22px; background:#00c9a7; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">💰 Fees</a>
-        <a href="/complaint/" style="padding:10px 22px; background:#0f1b2d; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">📝 Complaints</a>
-        <a href="/visitor/" style="padding:10px 22px; background:#00c9a7; color:white; text-decoration:none; border-radius:10px; font-size:0.88rem; font-weight:600;">🚪 Visitors</a>
+<div class="quick-links">
+    <div class="ql-title">⚡ Quick Links</div>
+    <div class="ql-row">
+        <a href="/add-student/" class="ql-btn dark">➕ Add Student</a>
+        <a href="/students/" class="ql-btn green">🎓 Students</a>
+        <a href="/rooms/" class="ql-btn teal">🛏️ Rooms</a>
+        <a href="/fees/" class="ql-btn orange">💰 Fees</a>
+        <a href="/complaint/" class="ql-btn blue">📝 Complaints</a>
+        <a href="/visitor/" class="ql-btn red">🚪 Visitors</a>
     </div>
 </div>
+
+<!-- Recent Activities -->
+<div class="quick-links" style="margin-top:25px;">
+    <div class="ql-title">📌 Recent Activities</div>
+
+    <ul style="list-style:none; padding:0;">
+        {% for activity in activities %}
+        <li style="padding:8px 0; border-bottom:1px solid #f0f7f2; color:#1b2d25;">
+            {{ activity.message }}
+        </li>
+        {% empty %}
+        <li style="color:#6b8c78;">No recent activity</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+    // Data from Django
+    const students   = {{ students|default:0 }};
+    const rooms      = {{ rooms|default:0 }};
+    const complaints = {{ complaints|default:0 }};
+    const fees       = {{ fees|default:0 }};
+    const resolved   = {{ resolved|default:0 }};
+    const highPri    = {{ high_priority|default:0 }};
+
+    // Bar Chart
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Students', 'Rooms', 'Complaints', 'Pending Fees'],
+            datasets: [{
+                label: 'Count',
+                data: [students, rooms, complaints, fees],
+                backgroundColor: ['#52b788','#457b9d','#f4a261','#e63946'],
+                borderRadius: 8,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1, color: '#6b8c78' },
+                    grid: { color: '#f0f7f2' }
+                },
+                x: {
+                    ticks: { color: '#6b8c78' },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // Pie Chart
+    const pending = complaints;
+    const resolvedC = resolved;
+    const lowPri = Math.max(0, complaints - highPri);
+
+    new Chart(document.getElementById('pieChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'Resolved', 'High Priority'],
+            datasets: [{
+                data: [
+                    pending > 0 ? pending : 1,
+                    resolvedC > 0 ? resolvedC : 0,
+                    highPri > 0 ? highPri : 0
+                ],
+                backgroundColor: ['#f4a261','#52b788','#e63946'],
+                borderWidth: 3,
+                borderColor: '#fff',
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '65%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#1b2d25', font: { size: 12 }, padding: 16 }
+                }
+            }
+        }
+    });
+</script>
 
 {% endblock %}

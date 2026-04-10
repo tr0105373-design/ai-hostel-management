@@ -2,68 +2,260 @@
 
 {% block content %}
 
-<!-- Hero Banner -->
-<div style="
-    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 60%, #0a2840 100%);
-    border-radius: 20px;
-    padding: 50px 40px;
-    text-align: center;
-    margin-bottom: 35px;
-    overflow: hidden;
-">
-    <h1 style="font-family:'Playfair Display',serif; font-size:2.2rem; color:white; margin-bottom:10px;">
-        Welcome to <span style="color:#00c9a7;">AI Hostel</span> Management
-    </h1>
-    <p style="color:rgba(255,255,255,0.55); font-size:0.95rem;">
-        Manage students, rooms, fees & more — all in one place.
-    </p>
+<style>
+    * { box-sizing: border-box; }
+
+    .hero-section {
+        background: linear-gradient(135deg, #f0faf4 0%, #e8f5f0 100%);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 24px;
+        border: 1px solid #d4ede3;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -60px; right: -60px;
+        width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(82,183,136,0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .hero-left { flex: 1; position: relative; }
+
+    .hero-left h1 {
+        font-family: 'Fraunces', serif;
+        font-size: 1.9rem;
+        color: #1b2d25;
+        margin-bottom: 10px;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    .hero-left h1 span { color: #2d6a4f; }
+
+    .hero-left p {
+        color: #6b8c78;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .hero-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .hero-stat {
+        background: white;
+        border-radius: 14px;
+        padding: 16px 20px;
+        text-align: center;
+        border: 1px solid #d4ede3;
+        box-shadow: 0 2px 8px rgba(45,106,79,0.07);
+        min-width: 110px;
+    }
+
+    .hero-stat .stat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+
+    .hero-stat .stat-num {
+        font-family: 'Fraunces', serif;
+        font-size: 1.6rem;
+        color: #1b2d25;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .hero-stat .stat-lbl {
+        font-size: 0.72rem;
+        color: #6b8c78;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+    }
+
+    .section-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #6b8c78;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e0ede6;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 14px;
+        width: 100%;
+    }
+
+    .cards-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        width: 100%;
+    }
+
+    .access-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px 16px 20px;
+        text-align: center;
+        border: 1.5px solid #e8f2ec;
+        box-shadow: 0 2px 8px rgba(45,106,79,0.06);
+        transition: all 0.25s ease;
+        width: 100%;
+    }
+
+    .access-card:hover {
+        border-color: #52b788;
+        box-shadow: 0 8px 24px rgba(45,106,79,0.13);
+        transform: translateY(-4px);
+    }
+
+    .card-icon {
+        width: 52px; height: 52px;
+        border-radius: 14px;
+        background: #f0f7f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 12px;
+        transition: background 0.2s;
+    }
+
+    .access-card:hover .card-icon { background: #d8f3dc; }
+
+    .access-card h3 {
+        font-family: 'Fraunces', serif;
+        font-size: 0.95rem;
+        color: #1b2d25;
+        margin-bottom: 14px;
+        font-weight: 600;
+    }
+
+    .open-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #2d6a4f;
+        color: white;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .access-card:hover .open-btn { background: #52b788; }
+
+    /* Visitor card spans full last column */
+    .visitor-card {
+        grid-column: 4;
+    }
+</style>
+
+<!-- Hero Split -->
+<div class="hero-section">
+    <div class="hero-left">
+        <h1>Welcome to <span>AI Hostel</span> Management 🏠</h1>
+        <p>Manage students, rooms, fees & more — all in one place.</p>
+    </div>
+    <div class="hero-right">
+        <div class="hero-stat">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-num">{{ students|default:"0" }}</div>
+            <div class="stat-lbl">Students</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">🛏️</div>
+            <div class="stat-num">{{ rooms|default:"0" }}</div>
+            <div class="stat-lbl">Rooms</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">📝</div>
+            <div class="stat-num">{{ complaints|default:"0" }}</div>
+            <div class="stat-lbl">Complaints</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">💰</div>
+            <div class="stat-num">{{ fees|default:"0" }}</div>
+            <div class="stat-lbl">Fees</div>
+        </div>
+    </div>
 </div>
 
-<!-- Cards -->
-<p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:2px; color:#6b7f96; margin-bottom:18px;">Quick Access</p>
+<!-- Quick Access -->
+<div class="section-label">Quick Access</div>
 
-<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:22px;">
-
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">📊</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Dashboard</h3>
-        <a href="/dashboard/" class="btn">Open</a>
+<!-- Row 1 - 4 cards -->
+<div class="cards-grid">
+    <div class="access-card">
+        <div class="card-icon">📊</div>
+        <h3>Dashboard</h3>
+        <a href="/dashboard/" class="open-btn">Open</a>
     </div>
 
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">➕</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Add Student</h3>
-        <a href="/add-student/" class="btn">Open</a>
+    <div class="access-card">
+        <div class="card-icon">➕</div>
+        <h3>Add Student</h3>
+        <a href="/add-student/" class="open-btn">Open</a>
     </div>
 
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Students</h3>
-        <a href="/student/" class="btn">Open</a>
+    <div class="access-card">
+        <div class="card-icon">🎓</div>
+        <h3>Students</h3>
+        <a href="/students/" class="open-btn">Open</a>
     </div>
 
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">🛏️</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Rooms</h3>
-        <a href="/rooms/" class="btn">Open</a>
+    <div class="access-card">
+        <div class="card-icon">🛏️</div>
+        <h3>Rooms</h3>
+        <a href="/rooms/" class="open-btn">Open</a>
+    </div>
+</div>
+
+<!-- Row 2 - 4 cards -->
+<div class="cards-grid-3">
+    <div class="access-card">
+        <div class="card-icon">💰</div>
+        <h3>Fees</h3>
+        <a href="/fees/" class="open-btn">Open</a>
     </div>
 
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">💰</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Fees</h3>
-        <a href="/fees/" class="btn">Open</a>
+    <div class="access-card">
+        <div class="card-icon">📝</div>
+        <h3>Complaint</h3>
+        <a href="/complaint/" class="open-btn">Open</a>
     </div>
 
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">📝</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Complaint</h3>
-        <a href="/complaint/" class="btn">Open</a>
-    </div>
-
-    <div class="card">
-        <div style="font-size:2rem; margin-bottom:12px;">🚪</div>
-        <h3 style="font-family:'Playfair Display',serif; margin-bottom:16px; color:#0f1b2d;">Visitor</h3>
-        <a href="/visitor/" class="btn">Open</a>
+    <div class="access-card">
+        <div class="card-icon">🚪</div>
+        <h3>Visitor</h3>
+        <a href="/visitor/" class="open-btn">Open</a>
     </div>
 
 </div>

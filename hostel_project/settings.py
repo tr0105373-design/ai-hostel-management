@@ -61,8 +61,8 @@ ROOT_URLCONF = "hostel_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
-        "APP_DIRS": True,
+        "DIRS": [os.path.join(BASE_DIR, "hostel_app/templates")],
+        "APP_DIRS": True,  
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
@@ -72,6 +72,7 @@ TEMPLATES = [
         },
     },
 ]
+# BASE_DIR / 'templates'
 
 WSGI_APPLICATION = "hostel_project.wsgi.application"
 
@@ -125,3 +126,5 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/home/'
