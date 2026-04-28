@@ -1,0 +1,84 @@
+{% extends 'hostel_app/base.html' %}
+{% block content %}
+
+<!-- Page Header -->
+<div style="background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+            border-radius: 16px; padding: 35px 40px; margin-bottom: 30px;">
+    <h2 style="font-family:'Fraunces',serif; color:white; font-size:1.8rem; margin-bottom:6px;">💳 Pay Fee</h2>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">Secure payment via Razorpay</p>
+</div>
+
+<!-- Payment Card -->
+<div style="background:white; border-radius:16px; padding:35px;
+            box-shadow:0 2px 16px rgba(26,86,219,0.08); max-width:500px;">
+
+    <div style="margin-bottom:24px; padding:16px; background:#f8fbff; border-radius:12px; border:1px solid #bfdbfe;">
+        <p style="font-size:0.82rem; color:#4b6cb7; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Student</p>
+        <p style="font-size:1.2rem; color:#1e3a5f; font-weight:700;">{{ fee.student.name }}</p>
+    </div>
+
+    <div style="margin-bottom:24px; padding:16px; background:#f8fbff; border-radius:12px; border:1px solid #bfdbfe;">
+        <p style="font-size:0.82rem; color:#4b6cb7; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Amount</p>
+        <p style="font-size:2.2rem; color:#1a56db; font-weight:700;">₹{{ fee.amount }}</p>
+    </div>
+
+    <div style="margin-bottom:30px; padding:16px; background:#f8fbff; border-radius:12px; border:1px solid #bfdbfe;">
+        <p style="font-size:0.82rem; color:#4b6cb7; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Status</p>
+        <span style="background:#fde8e8; color:#c0392b; padding:5px 14px; border-radius:20px; font-size:0.85rem; font-weight:600;">
+            🔴 Pending
+        </span>
+    </div>
+
+    <button id="pay-btn" style="
+        width:100%; padding:16px;
+        background: linear-gradient(135deg, #1e3a8a, #1a56db);
+        color:white; border:none; border-radius:10px;
+        font-size:1.1rem; font-weight:600; cursor:pointer;
+        transition: opacity 0.2s;"
+        onmouseover="this.style.opacity='0.85'"
+        onmouseout="this.style.opacity='1'">
+        💳 Pay ₹{{ fee.amount }} Now
+    </button>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.getElementById('pay-btn').onclick = function(){
+        var options = {
+            key: '{{ razorpay_key }}',
+            amount: '{{ order.amount }}',
+            currency: 'INR',
+            order_id: '{{ order.id }}',
+            name: 'AI Hostel Management',
+            description: 'Fee Payment',
+            theme: { color: '#1a56db' },
+            handler: function(response) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/payment-success/';
+
+                var fields = {
+                    'razorpay_payment_id': response.razorpay_payment_id,
+                    'razorpay_order_id': response.razorpay_order_id,
+                    'razorpay_signature': response.razorpay_signature,
+                    'fee_id': '{{ fee.id }}',
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                };
+
+                for(var key in fields){
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = fields[key];
+                    form.appendChild(input);
+                }
+                document.body.appendChild(form);
+                form.submit();
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+    }
+</script>
+
+{% endblock %}

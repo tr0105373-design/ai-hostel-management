@@ -1,0 +1,149 @@
+{% extends 'hostel_app/student/base.html' %}
+{% block content %}
+
+<div style="display: grid; grid-template-columns: 300px 1fr; gap: 20px;">
+
+    <!-- Left — Profile Card -->
+    <div>
+        <div class="section-box" style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #1e3a8a, #1a56db);
+                        border-radius: 50%; display: flex; align-items: center;
+                        justify-content: center; margin: 0 auto 16px;
+                        font-size: 42px; color: white; font-weight: 700;">
+                {{ student.name|first|upper }}
+            </div>
+
+            <h3 style="font-size: 20px; color: #1e3a5f; font-weight: 700;">
+                {{ student.name }}
+            </h3>
+            <p style="font-size: 15px; color: #4b6cb7; margin-top: 6px;">
+                {{ student.course }}
+            </p>
+
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #eff6ff;">
+                <span style="background: #dbeafe; color: #1a56db;
+                             padding: 7px 18px; border-radius: 20px;
+                             font-size: 14px; font-weight: 600;">
+                    ✓ Active Student
+                </span>
+            </div>
+        </div>
+
+        <!-- Room Card -->
+        <div class="section-box" style="margin-top: 0;">
+            <h3 style="font-size: 16px; color: #1e3a8a; font-weight: 700; margin-bottom: 16px;">🛏️ Room Info</h3>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eff6ff;">
+                <span style="font-size: 14px; color: #6b7280; font-weight: 500;">Room Number</span>
+                <span style="font-size: 18px; color: #1e3a5f; font-weight: 700;">
+                    {{ student.room_number|default:"Not Assigned" }}
+                </span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                <span style="font-size: 14px; color: #6b7280; font-weight: 500;">Status</span>
+                <span style="font-size: 14px; background: #dbeafe; color: #1a56db;
+                             padding: 5px 14px; border-radius: 10px; font-weight: 600;">
+                    Allotted
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right — Details -->
+    <div>
+        <div class="section-box">
+            <h3 style="font-size: 16px; color: #1e3a8a; font-weight: 700; margin-bottom: 22px;">👤 Personal Details</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Full Name</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.name }}
+                    </p>
+                </div>
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Email Address</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.email }}
+                    </p>
+                </div>
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Phone Number</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.phone }}
+                    </p>
+                </div>
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Course</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.course }}
+                    </p>
+                </div>
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Room Number</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.room_number|default:"Not Assigned" }}
+                    </p>
+                </div>
+
+                <div style="background: #f8fbff; border-radius: 12px; padding: 16px 18px; border: 1px solid #bfdbfe;">
+                    <label style="font-size: 12px; color: #6b7280; font-weight: 600;
+                                  text-transform: uppercase; letter-spacing: 0.8px;">Username</label>
+                    <p style="font-size: 18px; color: #1e3a5f; margin-top: 8px; font-weight: 700;">
+                        {{ student.user.username }}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+
+            <div style="background: white; border-radius: 14px; padding: 24px 20px;
+                        box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                        border-top: 4px solid #1a56db; text-align: center;">
+                <div style="font-size: 32px; margin-bottom: 12px;">💰</div>
+                <h3 style="font-size: 32px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+                    {% with fees=student.fee_set.all %}{{ fees|length }}{% endwith %}
+                </h3>
+                <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Total Fees</p>
+            </div>
+
+            <div style="background: white; border-radius: 14px; padding: 24px 20px;
+                        box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                        border-top: 4px solid #f0a500; text-align: center;">
+                <div style="font-size: 32px; margin-bottom: 12px;">📝</div>
+                <h3 style="font-size: 32px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+                    {% with complaints=student.complaint_set.all %}{{ complaints|length }}{% endwith %}
+                </h3>
+                <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Complaints</p>
+            </div>
+
+            <div style="background: white; border-radius: 14px; padding: 24px 20px;
+                        box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                        border-top: 4px solid #3b82f6; text-align: center;">
+                <div style="font-size: 32px; margin-bottom: 12px;">👥</div>
+                <h3 style="font-size: 32px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+                    {% with visitors=student.visitor_set.all %}{{ visitors|length }}{% endwith %}
+                </h3>
+                <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Visitors</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

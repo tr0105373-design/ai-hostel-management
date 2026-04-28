@@ -1,0 +1,130 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+">
+    <div>
+        <h2 style="font-family:'Fraunces',serif; color:white; font-size:1.8rem; margin-bottom:6px;">💰 Fee Management</h2>
+        <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">Complete fee record of Student</p>
+    </div>
+</div>
+
+<!-- Add Fee Form -->
+<div style="background:white; border-radius:16px; padding:28px;
+            box-shadow:0 2px 16px rgba(26,86,219,0.08); margin-bottom:24px;">
+    <h3 style="font-family:'Fraunces',serif; color:#1e3a5f; font-size:1.2rem; margin-bottom:20px;">➕ Add Fee Record</h3>
+    <form method="POST" style="display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end;">
+        {% csrf_token %}
+        <div>
+            <label style="display:block; font-size:0.78rem; font-weight:600; color:#4b6cb7;
+                          text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Student</label>
+            <select name="student" style="padding:11px 16px; border:2px solid #bfdbfe;
+                    border-radius:10px; font-size:0.9rem; color:#1e3a5f; outline:none; background:white; min-width:180px;">
+                {% for s in students %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label style="display:block; font-size:0.78rem; font-weight:600; color:#4b6cb7;
+                          text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Amount (₹)</label>
+            <input type="number" name="amount" placeholder="Enter amount"
+                style="padding:11px 16px; border:2px solid #bfdbfe; border-radius:10px;
+                       font-size:0.9rem; color:#1e3a5f; outline:none; min-width:180px;">
+        </div>
+        <button type="submit" style="padding:11px 28px; background:#1a56db; color:white;
+                border:none; border-radius:10px; font-size:0.9rem; font-weight:600; cursor:pointer;"
+                onmouseover="this.style.background='#1e3a8a'"
+                onmouseout="this.style.background='#1a56db'">
+            ➕ Add Fee
+        </button>
+    </form>
+</div>
+
+<!-- Table -->
+<div style="background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 2px 16px rgba(26,86,219,0.08);">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background: #1e3a8a;">
+                <th style="padding:16px 20px; text-align:left; color:#93c5fd; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Student</th>
+                <th style="padding:16px 20px; text-align:left; color:#93c5fd; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Amount</th>
+                <th style="padding:16px 20px; text-align:left; color:#93c5fd; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Status</th>
+                <th style="padding:16px 20px; text-align:left; color:#93c5fd; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in fees %}
+            <tr style="border-bottom:1px solid #eff6ff;"
+                onmouseover="this.style.background='#f0f7ff'"
+                onmouseout="this.style.background='white'">
+
+                <td style="padding:14px 20px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="width:36px; height:36px;
+                            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+                            border-radius:50%; display:flex; align-items:center;
+                            justify-content:center; color:white; font-weight:700; font-size:0.85rem;">
+                            {{ f.student.name|slice:":1"|upper }}
+                        </div>
+                        <span style="font-weight:600; color:#1e3a5f;">{{ f.student.name }}</span>
+                    </div>
+                </td>
+
+                <td style="padding:14px 20px;">
+                    <span style="font-family:'Fraunces',serif; font-size:1.1rem; color:#1e3a5f; font-weight:700;">
+                        ₹{{ f.amount }}
+                    </span>
+                </td>
+
+                <td style="padding:14px 20px;">
+                    {% if f.status == "Pending" %}
+                        <span style="background:#fde8e8; color:#c0392b; padding:5px 14px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                            🔴 Pending
+                        </span>
+                    {% else %}
+                        <span style="background:#dbeafe; color:#1a56db; padding:5px 14px; border-radius:20px; font-size:0.82rem; font-weight:600;">
+                            ✅ Paid
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td style="padding:14px 20px;">
+                    {% if f.status == "Pending" %}
+                        <a href="/pay-fee/{{ f.id }}/" style="
+                            display:inline-block; padding:8px 20px;
+                            background: #1a56db; color: white;
+                            text-decoration: none; border-radius: 8px;
+                            font-size: 0.82rem; font-weight: 600;"
+                            onmouseover="this.style.background='#1e3a8a'"
+                            onmouseout="this.style.background='#1a56db'">
+                            💳 Pay Now
+                        </a>
+                    {% else %}
+                        <span style="color:#1a56db; font-weight:600; font-size:0.88rem;">✅ Done</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not fees %}
+    <div style="text-align:center; padding:50px; color:#4b6cb7;">
+        <div style="font-size:2.5rem; margin-bottom:10px;">💰</div>
+        <p style="font-weight:500;">Koi fee record nahi mila</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

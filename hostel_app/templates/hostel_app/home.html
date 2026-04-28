@@ -1,0 +1,261 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+
+<style>
+    * { box-sizing: border-box; }
+
+    .hero-section {
+        background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 24px;
+        border: 1px solid #bfdbfe;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -60px; right: -60px;
+        width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .hero-left { flex: 1; position: relative; }
+
+    .hero-left h1 {
+        font-family: 'Fraunces', serif;
+        font-size: 1.9rem;
+        color: #1e3a5f;
+        margin-bottom: 10px;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    .hero-left h1 span { color: #1a56db; }
+
+    .hero-left p {
+        color: #4b6cb7;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .hero-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .hero-stat {
+        background: white;
+        border-radius: 14px;
+        padding: 16px 20px;
+        text-align: center;
+        border: 1px solid #bfdbfe;
+        box-shadow: 0 2px 8px rgba(26,86,219,0.07);
+        min-width: 110px;
+    }
+
+    .hero-stat .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .hero-stat .stat-num {
+        font-family: 'Fraunces', serif;
+        font-size: 1.6rem;
+        color: #1e3a5f;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .hero-stat .stat-lbl {
+        font-size: 0.72rem;
+        color: #4b6cb7;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+    }
+
+    .section-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #4b6cb7;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #dbeafe;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 16px;
+        width: 100%;
+    }
+
+    .cards-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        width: 100%;
+    }
+
+    .access-card {
+        background: white;
+        border-radius: 18px;
+        padding: 32px 16px 24px;
+        text-align: center;
+        border: 1.5px solid #e0f2fe;
+        box-shadow: 0 2px 8px rgba(26,86,219,0.06);
+        transition: all 0.25s ease;
+        width: 100%;
+    }
+
+    .access-card:hover {
+        border-color: #3b82f6;
+        box-shadow: 0 8px 24px rgba(26,86,219,0.13);
+        transform: translateY(-4px);
+    }
+
+    .card-icon {
+        width: 150px;
+        height: 150px;
+        border-radius: 22px;
+        background: #eff6ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin: 0 auto 16px;
+        transition: background 0.2s;
+    }
+
+    .access-card:hover .card-icon { background: #dbeafe; }
+
+    .access-card h3 {
+        font-family: 'Fraunces', serif;
+        font-size: 1rem;
+        color: #1e3a5f;
+        margin-bottom: 16px;
+        font-weight: 600;
+    }
+
+    .open-btn {
+        display: inline-block;
+        padding: 10px 24px;
+        background: #1a56db;
+        color: white;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .access-card:hover .open-btn { background: #3b82f6; }
+</style>
+
+<!-- Hero Split -->
+<div class="hero-section">
+    <div class="hero-left">
+        <h1>Welcome to <span>AI Hostel</span> Management 🏠</h1>
+        <p>Manage students, rooms, fees & more — all in one place.</p>
+    </div>
+    <div class="hero-right">
+        <div class="hero-stat">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-num">{{ students|default:"0" }}</div>
+            <div class="stat-lbl">Students</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">🛏️</div>
+            <div class="stat-num">{{ rooms|default:"0" }}</div>
+            <div class="stat-lbl">Rooms</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">📝</div>
+            <div class="stat-num">{{ complaints|default:"0" }}</div>
+            <div class="stat-lbl">Complaints</div>
+        </div>
+        <div class="hero-stat">
+            <div class="stat-icon">💰</div>
+            <div class="stat-num">{{ fees|default:"0" }}</div>
+            <div class="stat-lbl">Fees</div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Access -->
+<div class="section-label">Quick Access</div>
+
+<!-- Row 1 - 4 cards -->
+<div class="cards-grid">
+    <div class="access-card">
+        <div class="card-icon">📊</div>
+        <h3>Dashboard</h3>
+        <a href="/dashboard/" class="open-btn">Open</a>
+    </div>
+
+    <div class="access-card">
+        <div class="card-icon">➕</div>
+        <h3>Add Student</h3>
+        <a href="/add-student/" class="open-btn">Open</a>
+    </div>
+
+    <div class="access-card">
+        <div class="card-icon">🎓</div>
+        <h3>Students</h3>
+        <a href="/students/" class="open-btn">Open</a>
+    </div>
+
+    <div class="access-card">
+        <div class="card-icon">🛏️</div>
+        <h3>Rooms</h3>
+        <a href="/rooms/" class="open-btn">Open</a>
+    </div>
+</div>
+
+<!-- Row 2 -->
+<div class="cards-grid-3">
+    <div class="access-card">
+        <div class="card-icon">💰</div>
+        <h3>Fees</h3>
+        <a href="/fees/" class="open-btn">Open</a>
+    </div>
+
+    <div class="access-card">
+        <div class="card-icon">📝</div>
+        <h3>Complaint</h3>
+        <a href="/complaint/" class="open-btn">Open</a>
+    </div>
+
+    <div class="access-card">
+        <div class="card-icon">🚪</div>
+        <h3>Visitor</h3>
+        <a href="/visitor/" class="open-btn">Open</a>
+    </div>
+</div>
+
+{% endblock %}

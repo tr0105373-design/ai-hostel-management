@@ -1,0 +1,97 @@
+{% extends 'hostel_app/student/base.html' %}
+{% block content %}
+
+<div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 20px;">
+
+    <!-- Add Visitor Form -->
+    <div class="section-box">
+        <h3>👥 Add Visitor Request</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Visitor Name</label>
+                <input type="text" name="name"
+                       placeholder="Enter visitor's full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Purpose of Visit</label>
+                <select name="purpose">
+                    <option value="Family Visit">Family Visit</option>
+                    <option value="Friend Visit">Friend Visit</option>
+                    <option value="Official Work">Official Work</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- Info Note -->
+            <div style="background: #f4f8f5; border-radius: 8px;
+                        padding: 10px 14px; margin-bottom: 14px;
+                        display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px;">ℹ️</span>
+                <p style="font-size: 12px; color: #555;">
+                    Entry time will be recorded automatically
+                </p>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">
+                Add Visitor →
+            </button>
+        </form>
+    </div>
+
+    <!-- Visitor Log -->
+    <div class="section-box">
+        <h3>📋 My Visitor Log</h3>
+
+        {% if visitors %}
+            {% for visitor in visitors %}
+            <div style="display: flex; align-items: center; gap: 12px;
+                        padding: 12px 0; border-bottom: 1px solid #f5f5f5;">
+
+                <!-- Avatar -->
+                <div style="width: 40px; height: 40px; background: #f4f8f5;
+                            border-radius: 50%; display: flex; align-items: center;
+                            justify-content: center; font-size: 18px;
+                            flex-shrink: 0; border: 1px solid #e2ede5;">
+                    👤
+                </div>
+
+                <div style="flex: 1;">
+                    <p style="font-size: 13.5px; color: #111; font-weight: 600;">
+                        {{ visitor.visitor_name }}
+                    </p>
+                    <p style="font-size: 12px; color: #888; margin-top: 2px;">
+                        {{ visitor.purpose }}
+                    </p>
+                </div>
+
+                <div style="text-align: right;">
+                    <p style="font-size: 11.5px; color: #aaa;">
+                        {{ visitor.entry_time|date:"d M Y" }}
+                    </p>
+                    <p style="font-size: 11px; color: #bbb; margin-top: 2px;">
+                        {{ visitor.entry_time|time:"h:i A" }}
+                    </p>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <div style="text-align: center; padding: 50px 0; color: #aaa;">
+                <div style="font-size: 40px; margin-bottom: 12px;">👥</div>
+                <p style="font-size: 14px;">No visitors yet</p>
+                <p style="font-size: 12px; margin-top: 4px;">
+                    Add a visitor using the form
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

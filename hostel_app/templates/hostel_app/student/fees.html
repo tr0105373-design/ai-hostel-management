@@ -1,0 +1,88 @@
+{% extends 'hostel_app/student/base.html' %}
+{% block content %}
+
+<!-- Stats -->
+<div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="stat-card">
+        <div class="card-icon">💰</div>
+        <h3>{{ fees|length }}</h3>
+        <p>Total Fees</p>
+    </div>
+    <div class="stat-card orange">
+        <div class="card-icon">⏳</div>
+        <h3>{% with count=0 %}
+            {% for fee in fees %}{% if fee.status == 'Pending' %}
+                {{ forloop.counter }}
+            {% endif %}{% endfor %}
+        {% endwith %}</h3>
+        <p>Pending</p>
+    </div>
+    <div class="stat-card" style="border-top-color: #22c55e;">
+        <div class="card-icon">✅</div>
+        <h3>{% for fee in fees %}{% if fee.status == 'Paid' %}{{ forloop.counter }}{% endif %}{% endfor %}</h3>
+        <p>Paid</p>
+    </div>
+</div>
+
+<!-- Fees Table -->
+<div class="section-box">
+    <h3>💰 My Fee Records</h3>
+
+    {% if fees %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fees %}
+            <tr>
+                <td style="color: #888;">{{ forloop.counter }}</td>
+                <td>
+                    <span style="font-size: 15px; font-weight: 700; color: #1e4d2b;">
+                        ₹{{ fee.amount }}
+                    </span>
+                </td>
+                <td style="color: #555;">
+                    {% if fee.due_date %}
+                        {{ fee.due_date|date:"d M Y" }}
+                    {% else %}
+                        <span style="color: #bbb;">—</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if fee.status == 'Paid' %}
+                        <span class="badge badge-paid">✓ Paid</span>
+                    {% else %}
+                        <span class="badge badge-pending">⏳ Pending</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div style="text-align: center; padding: 50px 0; color: #aaa;">
+        <div style="font-size: 40px; margin-bottom: 12px;">💸</div>
+        <p style="font-size: 14px;">No fee records found</p>
+        <p style="font-size: 12px; margin-top: 4px;">Contact admin if you think this is wrong</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Note -->
+<div style="background: #fff8e1; border: 1px solid #f0d080;
+            border-radius: 10px; padding: 14px 18px;
+            display: flex; align-items: center; gap: 10px;">
+    <span style="font-size: 18px;">ℹ️</span>
+    <p style="font-size: 12.5px; color: #856404;">
+        For any fee-related queries, please contact the hostel admin or warden directly.
+    </p>
+</div>
+
+{% endblock %}

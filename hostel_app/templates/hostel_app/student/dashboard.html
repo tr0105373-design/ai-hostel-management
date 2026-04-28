@@ -1,0 +1,141 @@
+{% extends 'hostel_app/student/base.html' %}
+{% block content %}
+
+<!-- Welcome Banner -->
+<div style="background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+            border-radius: 14px; padding: 28px 32px; margin-bottom: 22px;
+            display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <h2 style="color: white; font-size: 22px; font-weight: 700; margin-bottom: 6px;">
+            Welcome back, {{ student.name }} 👋
+        </h2>
+        <p style="color: #93c5fd; font-size: 15px;">
+            {{ student.course }} &nbsp;|&nbsp; Room {{ student.room_number|default:"Not Assigned" }}
+        </p>
+    </div>
+    <div style="font-size: 56px;">🎓</div>
+</div>
+
+<!-- Stat Cards -->
+<div class="cards-grid">
+    <div style="background: white; border-radius: 14px; padding: 22px;
+                box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                border-top: 4px solid #1a56db;">
+        <div style="font-size: 32px; margin-bottom: 12px;">🛏️</div>
+        <h3 style="font-size: 30px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+            {{ student.room_number|default:"—" }}
+        </h3>
+        <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">My Room</p>
+    </div>
+
+    <div style="background: white; border-radius: 14px; padding: 22px;
+                box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                border-top: 4px solid #f0a500;">
+        <div style="font-size: 32px; margin-bottom: 12px;">💰</div>
+        <h3 style="font-size: 30px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+            {{ pending_fees }}
+        </h3>
+        <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Pending Fees</p>
+    </div>
+
+    <div style="background: white; border-radius: 14px; padding: 22px;
+                box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                border-top: 4px solid #3b82f6;">
+        <div style="font-size: 32px; margin-bottom: 12px;">📝</div>
+        <h3 style="font-size: 30px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+            {{ total_complaints }}
+        </h3>
+        <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Total Complaints</p>
+    </div>
+
+    <div style="background: white; border-radius: 14px; padding: 22px;
+                box-shadow: 0 1px 6px rgba(26,86,219,0.08);
+                border-top: 4px solid #ef4444;">
+        <div style="font-size: 32px; margin-bottom: 12px;">⏳</div>
+        <h3 style="font-size: 30px; color: #1e3a5f; font-weight: 700; line-height: 1;">
+            {{ pending_complaints }}
+        </h3>
+        <p style="font-size: 14px; color: #4b6cb7; margin-top: 6px; font-weight: 500;">Pending Complaints</p>
+    </div>
+</div>
+
+<!-- Quick Access + Notices -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+    <!-- Quick Access -->
+    <div class="section-box">
+        <h3 style="font-size: 16px; color: #1e3a8a; font-weight: 700; margin-bottom: 16px;">⚡ Quick Access</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+            <a href="{% url 'my_room' %}" style="text-decoration:none;">
+                <div style="background: #eff6ff; border-radius: 12px; padding: 20px 16px;
+                            text-align: center; border: 1px solid #bfdbfe;
+                            transition: all 0.2s;"
+                     onmouseover="this.style.background='#dbeafe'"
+                     onmouseout="this.style.background='#eff6ff'">
+                    <div style="font-size: 32px; margin-bottom: 8px;">🛏️</div>
+                    <p style="font-size: 14px; color: #1e3a8a; font-weight: 600;">My Room</p>
+                </div>
+            </a>
+
+            <a href="{% url 'my_fees' %}" style="text-decoration:none;">
+                <div style="background: #eff6ff; border-radius: 12px; padding: 20px 16px;
+                            text-align: center; border: 1px solid #bfdbfe;
+                            transition: all 0.2s;"
+                     onmouseover="this.style.background='#dbeafe'"
+                     onmouseout="this.style.background='#eff6ff'">
+                    <div style="font-size: 32px; margin-bottom: 8px;">💰</div>
+                    <p style="font-size: 14px; color: #1e3a8a; font-weight: 600;">My Fees</p>
+                </div>
+            </a>
+
+            <a href="{% url 'student_complaint' %}" style="text-decoration:none;">
+                <div style="background: #eff6ff; border-radius: 12px; padding: 20px 16px;
+                            text-align: center; border: 1px solid #bfdbfe;
+                            transition: all 0.2s;"
+                     onmouseover="this.style.background='#dbeafe'"
+                     onmouseout="this.style.background='#eff6ff'">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📝</div>
+                    <p style="font-size: 14px; color: #1e3a8a; font-weight: 600;">Complaints</p>
+                </div>
+            </a>
+
+            <a href="{% url 'visitor_request' %}" style="text-decoration:none;">
+                <div style="background: #eff6ff; border-radius: 12px; padding: 20px 16px;
+                            text-align: center; border: 1px solid #bfdbfe;
+                            transition: all 0.2s;"
+                     onmouseover="this.style.background='#dbeafe'"
+                     onmouseout="this.style.background='#eff6ff'">
+                    <div style="font-size: 32px; margin-bottom: 8px;">👥</div>
+                    <p style="font-size: 14px; color: #1e3a8a; font-weight: 600;">Visitors</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Recent Notices -->
+    <div class="section-box">
+        <h3 style="font-size: 16px; color: #1e3a8a; font-weight: 700; margin-bottom: 16px;">📢 Recent Notices</h3>
+        {% for notice in notices %}
+            <div class="notice-item">
+                <h4 style="font-size: 14px;">{{ notice.title }}</h4>
+                <p style="font-size: 13px;">{{ notice.message|truncatechars:80 }}</p>
+                <small>{{ notice.created_at|date:"d M Y" }}</small>
+            </div>
+        {% empty %}
+            <div style="text-align:center; padding: 30px 0; color: #aaa;">
+                <div style="font-size: 36px; margin-bottom: 8px;">📭</div>
+                <p style="font-size: 14px; color: #4b6cb7;">No notices yet</p>
+            </div>
+        {% endfor %}
+        <a href="{% url 'student_notices' %}"
+           style="display:block; text-align:center; margin-top:12px;
+                  font-size: 14px; color: #1a56db; text-decoration:none; font-weight:600;">
+            View All Notices →
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

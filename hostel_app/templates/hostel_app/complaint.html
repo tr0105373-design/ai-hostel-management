@@ -1,0 +1,182 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div style="
+    background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 30px;
+">
+    <h2 style="font-family:'Fraunces',serif; color:white; font-size:1.8rem; margin-bottom:6px;">📝 Student Complaint</h2>
+    <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">Manage and submit complaints</p>
+</div>
+
+<!-- Search Bar -->
+<form method="GET">
+    <div style="display:flex; gap:10px; margin-bottom:25px;">
+        <input type="text" name="q" placeholder="🔍 Search complaint..."
+            style="
+                flex:1; padding:12px 18px;
+                border:2px solid #bfdbfe;
+                border-radius:10px;
+                font-size:0.9rem;
+                outline:none;
+                font-family:'Outfit',sans-serif;
+                color:#1e3a5f;
+            ">
+        <button type="submit" style="
+            padding:12px 24px;
+            background:#1e3a8a;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:0.9rem;
+            font-weight:600;
+            cursor:pointer;
+        ">Search</button>
+    </div>
+</form>
+
+<!-- Submit Complaint Form -->
+<form method="POST">
+{% csrf_token %}
+<div style="
+    background:white;
+    border-radius:16px;
+    padding:30px;
+    box-shadow:0 2px 16px rgba(26,86,219,0.08);
+    margin-bottom:30px;
+">
+    <h3 style="font-family:'Fraunces',serif; color:#1e3a5f; margin-bottom:20px; font-size:1.2rem;">➕ New Complaint</h3>
+
+    <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:#4b6cb7; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Select Student</label>
+        <select name="student" style="
+            width:100%; padding:12px 16px;
+            border:2px solid #bfdbfe;
+            border-radius:10px;
+            font-size:0.9rem;
+            font-family:'Outfit',sans-serif;
+            color:#1e3a5f;
+            outline:none;
+            background:white;
+        ">
+            {% for s in students %}
+            <option value="{{ s.id }}">{{ s.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:#4b6cb7; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Complaint</label>
+        <textarea name="message" placeholder="Enter complaint here..." style="
+            width:100%; padding:12px 16px;
+            border:2px solid #bfdbfe;
+            border-radius:10px;
+            font-size:0.9rem;
+            font-family:'Outfit',sans-serif;
+            color:#1e3a5f;
+            outline:none;
+            resize:vertical;
+            min-height:100px;
+            box-sizing:border-box;
+        "></textarea>
+    </div>
+
+    <button type="submit" style="
+        padding:12px 28px;
+        background:#1a56db;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:0.9rem;
+        font-weight:600;
+        cursor:pointer;
+    ">📨 Submit Complaint</button>
+</div>
+
+<!-- All Complaints Table -->
+<div style="
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 2px 16px rgba(26,86,219,0.08);
+">
+    <div style="padding:20px 24px; border-bottom:1px solid #eff6ff;">
+        <h3 style="font-family:'Fraunces',serif; color:#1e3a5f; font-size:1.2rem;">📋 All Complaints</h3>
+    </div>
+
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background:#1e3a8a;">
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Student</th>
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Complaint</th>
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Status</th>
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Priority</th>
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Category</th>
+                <th style="padding:14px 20px; text-align:left; color:#93c5fd; font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in complaints %}
+            <tr style="border-bottom:1px solid #eff6ff;"
+                onmouseover="this.style.background='#f0f7ff'"
+                onmouseout="this.style.background='white'">
+
+                <td style="padding:14px 20px; font-weight:600; color:#1e3a5f;">{{ c.student.name }}</td>
+
+                <td style="padding:14px 20px; color:#1e3a5f; max-width:200px;">{{ c.message }}</td>
+
+                <td style="padding:14px 20px;">
+                    {% if c.status == "Resolved" %}
+                        <span style="background:#dbeafe; color:#1a56db; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">✅ Resolved</span>
+                    {% else %}
+                        <span style="background:#fde8e8; color:#c0392b; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">🔴 Pending</span>
+                    {% endif %}
+                </td>
+
+                <td style="padding:14px 20px;">
+                    {% if c.priority == "High" %}
+                        <span style="background:#fde8e8; color:#c0392b; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">🔥 High</span>
+                    {% elif c.priority == "Medium" %}
+                        <span style="background:#fff8e1; color:#d4a017; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">⚡ Medium</span>
+                    {% else %}
+                        <span style="background:#dbeafe; color:#1a56db; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">🔵 Low</span>
+                    {% endif %}
+                </td>
+
+                <td style="padding:14px 20px; color:#4b6cb7; font-size:0.88rem;">{{ c.category }}</td>
+
+                <td style="padding:14px 20px;">
+                    <a href="/resolve/{{c.id}}" style="
+                        display:inline-block;
+                        padding:7px 16px;
+                        background:#1a56db;
+                        color:white;
+                        text-decoration:none;
+                        border-radius:8px;
+                        font-size:0.82rem;
+                        font-weight:600;
+                    "
+                    onmouseover="this.style.background='#1e3a8a'"
+                    onmouseout="this.style.background='#1a56db'">
+                        ✔ Resolve
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not complaints %}
+    <div style="text-align:center; padding:50px; color:#4b6cb7;">
+        <div style="font-size:2.5rem; margin-bottom:10px;">📝</div>
+        <p style="font-weight:500;">Koi complaint nahi abhi</p>
+    </div>
+    {% endif %}
+</div>
+</form>
+
+{% endblock %}
