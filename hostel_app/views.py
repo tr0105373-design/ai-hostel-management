@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Student, Room, Complaint, Fee, Visitor, Activity, Notice
 from .forms import StudentForm
+import razorpay
+from django.conf import settings
 
 
 # ══════════════════════════════════════════
@@ -113,14 +115,12 @@ def add_student(request):
         if form.is_valid():
             student = form.save(commit=False)
 
-            # Room suggest karo
             room = suggest_room()
             if room:
                 student.room_number = room.room_number
                 room.occupied = room.occupied + 1
                 room.save()
 
-            # Django User banao student ke liye
             email = form.cleaned_data.get('email')
             name = form.cleaned_data.get('name')
             username = email.split('@')[0]
@@ -230,9 +230,34 @@ def fee(request):
 
 @login_required(login_url='login')
 def pay_fee(request, id):
-    f = Fee.objects.get(id=id)
-    f.status = "Paid"
-    f.save()
+    fee = Fee.objects.get(id=id)
+    client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+    order = client.order.create({
+        'amount': int(fee.amount) * 100,
+        'currency': 'INR',
+        'payment_capture': 1
+    })
+
+    return render(request, 'hostel_app/payment.html', {
+        'fee': fee,
+        'order': order,
+        'razorpay_key': settings.RAZORPAY_KEY_ID,
+    })
+
+
+@login_required(login_url='login')
+def payment_success(request):
+    if request.method == 'POST':
+        fee_id = request.POST.get('fee_id')
+        fee = Fee.objects.get(id=fee_id)
+        fee.status = 'Paid'
+        fee.save()
+        Activity.objects.create(message=f"Fee paid by {fee.student.name}")
+        return render(request, 'hostel_app/payment_success.html', {
+            'payment_id': request.POST.get('razorpay_payment_id'),
+            'fee': fee,
+        })
     return redirect('fee')
 
 
@@ -396,4 +421,41 @@ def student_notices(request):
     return render(request, 'hostel_app/student/notices.html', {
         'student': student,
         'notices': notices
+    })
+
+
+@login_required(login_url='login')
+def allocate_room(request):
+    students = Student.objects.all()
+    rooms = Room.objects.all()
+    message = None
+
+    if request.method == 'POST':
+        student_id = request.POST.get('student')
+        room_id = request.POST.get('room')
+
+        student = Student.objects.get(id=student_id)
+        room = Room.objects.get(id=room_id)
+
+        if room.occupied < room.capacity:
+            if student.room_number:
+                try:
+                    old_room = Room.objects.get(room_number=student.room_number)
+                    old_room.occupied -= 1
+                    old_room.save()
+                except:
+                    pass
+
+            student.room_number = room.room_number
+            student.save()
+            room.occupied += 1
+            room.save()
+            message = 'success'
+        else:
+            message = 'full'
+
+    return render(request, 'hostel_app/allocate_room.html', {
+        'students': students,
+        'rooms': rooms,
+        'message': message,
     })

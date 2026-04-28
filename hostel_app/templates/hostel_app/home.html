@@ -6,11 +6,11 @@
     * { box-sizing: border-box; }
 
     .hero-section {
-        background: linear-gradient(135deg, #f0faf4 0%, #e8f5f0 100%);
+        background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
         border-radius: 20px;
         padding: 40px;
         margin-bottom: 24px;
-        border: 1px solid #d4ede3;
+        border: 1px solid #bfdbfe;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -25,7 +25,7 @@
         position: absolute;
         top: -60px; right: -60px;
         width: 220px; height: 220px;
-        background: radial-gradient(circle, rgba(82,183,136,0.15) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
         border-radius: 50%;
     }
 
@@ -34,16 +34,16 @@
     .hero-left h1 {
         font-family: 'Fraunces', serif;
         font-size: 1.9rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         margin-bottom: 10px;
         font-weight: 600;
         line-height: 1.25;
     }
 
-    .hero-left h1 span { color: #2d6a4f; }
+    .hero-left h1 span { color: #1a56db; }
 
     .hero-left p {
-        color: #6b8c78;
+        color: #4b6cb7;
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -61,17 +61,20 @@
         border-radius: 14px;
         padding: 16px 20px;
         text-align: center;
-        border: 1px solid #d4ede3;
-        box-shadow: 0 2px 8px rgba(45,106,79,0.07);
+        border: 1px solid #bfdbfe;
+        box-shadow: 0 2px 8px rgba(26,86,219,0.07);
         min-width: 110px;
     }
 
-    .hero-stat .stat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+    .hero-stat .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
 
     .hero-stat .stat-num {
         font-family: 'Fraunces', serif;
         font-size: 1.6rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         font-weight: 700;
         line-height: 1;
         margin-bottom: 4px;
@@ -79,7 +82,7 @@
 
     .hero-stat .stat-lbl {
         font-size: 0.72rem;
-        color: #6b8c78;
+        color: #4b6cb7;
         text-transform: uppercase;
         letter-spacing: 0.8px;
         font-weight: 600;
@@ -89,7 +92,7 @@
         font-size: 0.72rem;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: #6b8c78;
+        color: #4b6cb7;
         font-weight: 700;
         margin-bottom: 16px;
         display: flex;
@@ -101,81 +104,77 @@
         content: '';
         flex: 1;
         height: 1px;
-        background: #e0ede6;
+        background: #dbeafe;
     }
 
     .cards-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-        margin-bottom: 14px;
+        gap: 16px;
+        margin-bottom: 16px;
         width: 100%;
     }
 
     .cards-grid-3 {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
+        gap: 16px;
         width: 100%;
     }
 
     .access-card {
         background: white;
-        border-radius: 16px;
-        padding: 24px 16px 20px;
+        border-radius: 18px;
+        padding: 32px 16px 24px;
         text-align: center;
-        border: 1.5px solid #e8f2ec;
-        box-shadow: 0 2px 8px rgba(45,106,79,0.06);
+        border: 1.5px solid #e0f2fe;
+        box-shadow: 0 2px 8px rgba(26,86,219,0.06);
         transition: all 0.25s ease;
         width: 100%;
     }
 
     .access-card:hover {
-        border-color: #52b788;
-        box-shadow: 0 8px 24px rgba(45,106,79,0.13);
+        border-color: #3b82f6;
+        box-shadow: 0 8px 24px rgba(26,86,219,0.13);
         transform: translateY(-4px);
     }
 
     .card-icon {
-        width: 52px; height: 52px;
-        border-radius: 14px;
-        background: #f0f7f2;
+        width: 150px;
+        height: 150px;
+        border-radius: 22px;
+        background: #eff6ff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        margin: 0 auto 12px;
+        font-size: 3rem;
+        margin: 0 auto 16px;
         transition: background 0.2s;
     }
 
-    .access-card:hover .card-icon { background: #d8f3dc; }
+    .access-card:hover .card-icon { background: #dbeafe; }
 
     .access-card h3 {
         font-family: 'Fraunces', serif;
-        font-size: 0.95rem;
-        color: #1b2d25;
-        margin-bottom: 14px;
+        font-size: 1rem;
+        color: #1e3a5f;
+        margin-bottom: 16px;
         font-weight: 600;
     }
 
     .open-btn {
         display: inline-block;
-        padding: 8px 20px;
-        background: #2d6a4f;
+        padding: 10px 24px;
+        background: #1a56db;
         color: white;
         border-radius: 8px;
-        font-size: 0.82rem;
+        font-size: 0.85rem;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.2s;
     }
 
-    .access-card:hover .open-btn { background: #52b788; }
-
-    /* Visitor card spans full last column */
-    .visitor-card {
-        grid-column: 4;
-    }
+    .access-card:hover .open-btn { background: #3b82f6; }
 </style>
 
 <!-- Hero Split -->
@@ -238,7 +237,7 @@
     </div>
 </div>
 
-<!-- Row 2 - 4 cards -->
+<!-- Row 2 -->
 <div class="cards-grid-3">
     <div class="access-card">
         <div class="card-icon">💰</div>
@@ -257,7 +256,6 @@
         <h3>Visitor</h3>
         <a href="/visitor/" class="open-btn">Open</a>
     </div>
-
 </div>
 
 {% endblock %}

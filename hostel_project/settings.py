@@ -128,3 +128,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/home/'
+
+RAZORPAY_KEY_ID = 'rzp_test_SimRG7f8EmFlL8'
+RAZORPAY_KEY_SECRET = 'utW75BG6mZiNJF2Wkw7V2qI1'

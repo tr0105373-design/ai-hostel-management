@@ -4,12 +4,12 @@
 
 <!-- Page Header -->
 <div style="
-    background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
     border-radius: 16px;
     padding: 35px 40px;
     margin-bottom: 30px;
 ">
-    <h2 style="font-family:'Playfair Display',serif; color:white; font-size:1.8rem; margin-bottom:6px;">🤖 AI Room Suggestion</h2>
+    <h2 style="font-family:'Fraunces',serif; color:white; font-size:1.8rem; margin-bottom:6px;">🤖 AI Room Suggestion</h2>
     <p style="color:rgba(255,255,255,0.55); font-size:0.9rem;">AI automatically best available room suggest karega</p>
 </div>
 
@@ -18,35 +18,34 @@
     background:white;
     border-radius:16px;
     padding:50px 40px;
-    box-shadow:0 2px 16px rgba(15,27,45,0.08);
+    box-shadow:0 2px 16px rgba(26,86,219,0.08);
     text-align:center;
     max-width:500px;
     margin:0 auto;
 ">
 
 {% if room %}
-    <!-- Room Available -->
     <div style="
         width:80px; height:80px;
-        background:linear-gradient(135deg,#00c9a7,#0f1b2d);
+        background:linear-gradient(135deg,#3b82f6,#1e3a8a);
         border-radius:50%;
         display:flex; align-items:center; justify-content:center;
         font-size:2rem;
         margin:0 auto 20px;
     ">🛏️</div>
 
-    <p style="font-size:0.82rem; text-transform:uppercase; letter-spacing:2px; color:#6b7f96; margin-bottom:10px;">Suggested Room</p>
+    <p style="font-size:0.82rem; text-transform:uppercase; letter-spacing:2px; color:#4b6cb7; margin-bottom:10px;">Suggested Room</p>
 
     <h1 style="
-        font-family:'Playfair Display',serif;
+        font-family:'Fraunces',serif;
         font-size:3rem;
-        color:#0f1b2d;
+        color:#1e3a5f;
         margin-bottom:16px;
     ">{{ room.room_number }}</h1>
 
     <span style="
-        background:#e8f8f5;
-        color:#00a68a;
+        background:#dbeafe;
+        color:#1a56db;
         padding:8px 20px;
         border-radius:20px;
         font-size:0.88rem;
@@ -56,25 +55,24 @@
     <div style="
         margin-top:30px;
         padding:20px;
-        background:#f8fbff;
+        background:#f0f7ff;
         border-radius:12px;
         display:flex;
         justify-content:center;
         gap:30px;
     ">
         <div>
-            <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Capacity</p>
-            <p style="font-family:'Playfair Display',serif; font-size:1.5rem; color:#0f1b2d; font-weight:700;">{{ room.capacity }}</p>
+            <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#4b6cb7; margin-bottom:4px;">Capacity</p>
+            <p style="font-family:'Fraunces',serif; font-size:1.5rem; color:#1e3a5f; font-weight:700;">{{ room.capacity }}</p>
         </div>
-        <div style="width:1px; background:#e0e8f0;"></div>
+        <div style="width:1px; background:#bfdbfe;"></div>
         <div>
-            <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#6b7f96; margin-bottom:4px;">Occupied</p>
-            <p style="font-family:'Playfair Display',serif; font-size:1.5rem; color:#0f1b2d; font-weight:700;">{{ room.occupied }}</p>
+            <p style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:#4b6cb7; margin-bottom:4px;">Occupied</p>
+            <p style="font-family:'Fraunces',serif; font-size:1.5rem; color:#1e3a5f; font-weight:700;">{{ room.occupied }}</p>
         </div>
     </div>
 
 {% else %}
-    <!-- No Room Available -->
     <div style="
         width:80px; height:80px;
         background:#fde8e8;
@@ -84,8 +82,8 @@
         margin:0 auto 20px;
     ">😔</div>
 
-    <h3 style="font-family:'Playfair Display',serif; color:#0f1b2d; margin-bottom:10px;">No Rooms Available</h3>
-    <p style="color:#6b7f96; font-size:0.9rem;">Checks room availability</p>
+    <h3 style="font-family:'Fraunces',serif; color:#1e3a5f; margin-bottom:10px;">No Rooms Available</h3>
+    <p style="color:#4b6cb7; font-size:0.9rem;">Checks room availability</p>
 
     <span style="
         display:inline-block;
@@ -99,12 +97,11 @@
     ">🔴 Full Capacity</span>
 {% endif %}
 
-    <!-- Back Button -->
     <div style="margin-top:30px;">
         <a href="/rooms/" style="
             display:inline-block;
             padding:11px 28px;
-            background:#0f1b2d;
+            background:#1e3a8a;
             color:white;
             text-decoration:none;
             border-radius:10px;

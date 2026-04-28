@@ -1,0 +1,39 @@
+{% extends 'hostel_app/base.html' %}
+{% block content %}
+
+<div style="text-align:center; padding:60px 20px;">
+
+    <!-- Success Icon -->
+    <div style="width:100px; height:100px;
+                background: linear-gradient(135deg, #1e3a8a, #1a56db);
+                border-radius:50%; display:flex; align-items:center;
+                justify-content:center; margin:0 auto 24px; font-size:3rem;">
+        ✅
+    </div>
+
+    <h2 style="font-family:'Fraunces',serif; font-size:2.2rem; color:#1e3a5f; margin-bottom:12px;">
+        Payment Successful!
+    </h2>
+
+    <p style="color:#4b6cb7; font-size:1.1rem; margin-bottom:8px;">
+        ₹{{ fee.amount }} paid successfully!
+    </p>
+
+    <p style="color:#93c5fd; font-size:0.9rem; margin-bottom:8px;">
+        Student: {{ fee.student.name }}
+    </p>
+
+    <p style="color:#93c5fd; font-size:0.88rem; margin-bottom:36px;">
+        Payment ID: {{ payment_id }}
+    </p>
+
+    <a href="/fees/" style="
+        display:inline-block; padding:14px 40px;
+        background: linear-gradient(135deg, #1e3a8a, #1a56db);
+        color:white; border-radius:10px; text-decoration:none;
+        font-size:1rem; font-weight:600;">
+        ← Back to Fees
+    </a>
+</div>
+
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 
 <style>
-     .dash-grid {
+    .dash-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
@@ -14,8 +14,8 @@
         background: white;
         border-radius: 16px;
         padding: 24px 20px;
-        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
-        border: 1px solid #d4e8da;
+        box-shadow: 0 2px 12px rgba(26,86,219,0.08);
+        border: 1px solid #bfdbfe;
         position: relative;
         overflow: hidden;
         transition: transform 0.25s, box-shadow 0.25s;
@@ -23,7 +23,7 @@
 
     .stat-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 30px rgba(45,106,79,0.15);
+        box-shadow: 0 10px 30px rgba(26,86,219,0.15);
     }
 
     .stat-card::after {
@@ -33,24 +33,24 @@
         height: 3px;
     }
 
-    .stat-card.green::after { background: linear-gradient(90deg, #2d6a4f, #52b788); }
-    .stat-card.blue::after  { background: linear-gradient(90deg, #457b9d, #a8dadc); }
+    .stat-card.green::after { background: linear-gradient(90deg, #1a56db, #3b82f6); }
+    .stat-card.blue::after  { background: linear-gradient(90deg, #1e3a8a, #60a5fa); }
     .stat-card.orange::after{ background: linear-gradient(90deg, #f4a261, #e76f51); }
     .stat-card.red::after   { background: linear-gradient(90deg, #e63946, #ff8fa3); }
 
     .stat-icon {
-        width: 48px;
-        height: 48px;
+        width: 72px;
+        height: 72px;
         border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.4rem;
+        font-size: 2.5rem;
         margin-bottom: 14px;
-    } 
+    }
 
-    .stat-card.green .stat-icon { background: #d8f3dc; }
-    .stat-card.blue .stat-icon  { background: #e0f0f8; }
+    .stat-card.green .stat-icon { background: #dbeafe; }
+    .stat-card.blue .stat-icon  { background: #e0f2fe; }
     .stat-card.orange .stat-icon{ background: #fdecd5; }
     .stat-card.red .stat-icon   { background: #fde8ea; }
 
@@ -58,7 +58,7 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: #6b8c78;
+        color: #4b6cb7;
         font-weight: 600;
         margin-bottom: 6px;
     }
@@ -66,18 +66,17 @@
     .stat-value {
         font-family: 'Fraunces', serif;
         font-size: 2.2rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         font-weight: 600;
         line-height: 1;
     }
 
     .stat-sub {
         font-size: 0.78rem;
-        color: #6b8c78;
+        color: #4b6cb7;
         margin-top: 6px;
     }
 
-    Charts Section
     .charts-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -89,14 +88,14 @@
         background: white;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
-        border: 1px solid #d4e8da;
+        box-shadow: 0 2px 12px rgba(26,86,219,0.08);
+        border: 1px solid #bfdbfe;
     }
 
     .chart-title {
         font-family: 'Fraunces', serif;
         font-size: 1.05rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         font-weight: 600;
         margin-bottom: 20px;
         display: flex;
@@ -108,13 +107,12 @@
         max-height: 220px;
     }
 
-    Admin Panel
-     .admin-panel {
+    .admin-panel {
         background: white;
         border-radius: 16px;
         padding: 28px;
-        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
-        border: 1px solid #d4e8da;
+        box-shadow: 0 2px 12px rgba(26,86,219,0.08);
+        border: 1px solid #bfdbfe;
         margin-bottom: 28px;
     }
 
@@ -124,21 +122,21 @@
         justify-content: space-between;
         margin-bottom: 24px;
         padding-bottom: 16px;
-        border-bottom: 1px solid #f0f7f2;
-    } 
+        border-bottom: 1px solid #eff6ff;
+    }
 
-     .admin-panel-header h3 {
+    .admin-panel-header h3 {
         font-family: 'Fraunces', serif;
         font-size: 1.1rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
     .admin-badge-pill {
-        background: #d8f3dc;
-        color: #2d6a4f;
+        background: #dbeafe;
+        color: #1a56db;
         font-size: 0.75rem;
         font-weight: 700;
         padding: 4px 12px;
@@ -158,55 +156,54 @@
         align-items: flex-start;
         gap: 6px;
         padding: 18px;
-        border: 2px solid #f0f7f2;
+        border: 2px solid #eff6ff;
         border-radius: 12px;
         text-decoration: none;
         transition: all 0.2s;
-        background: #fafcfb;
+        background: #f8fbff;
     }
 
-     .admin-action:hover {
-        border-color: #52b788;
-        background: #f0faf4;
+    .admin-action:hover {
+        border-color: #3b82f6;
+        background: #eff6ff;
         transform: translateY(-2px);
     }
 
     .admin-action .aa-icon {
-        width: 40px;
-        height: 40px;
-        background: #d8f3dc;
+        width: 60px;
+        height: 60px;
+        background: #dbeafe;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
+        font-size: 1.6rem;
         margin-bottom: 4px;
     }
 
     .admin-action h4 {
         font-size: 0.9rem;
         font-weight: 600;
-        color: #1b2d25;
+        color: #1e3a5f;
     }
 
     .admin-action p {
         font-size: 0.78rem;
-        color: #6b8c78;
+        color: #4b6cb7;
     }
 
-    /* Quick links */
     .quick-links {
         background: white;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 2px 12px rgba(45,106,79,0.08);
-        border: 1px solid #d4e8da;
+        box-shadow: 0 2px 12px rgba(26,86,219,0.08);
+        border: 1px solid #bfdbfe;
     }
 
     .ql-title {
         font-family: 'Fraunces', serif;
         font-size: 1rem;
-        color: #1b2d25;
+        color: #1e3a5f;
         margin-bottom: 16px;
     }
 
@@ -214,7 +211,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-    } 
+    }
 
     .ql-btn {
         display: inline-flex;
@@ -228,11 +225,11 @@
         transition: all 0.2s;
     }
 
-    .ql-btn.dark  { background: #1b4332; color: white; }
-    .ql-btn.green { background: #2d6a4f; color: white; }
-    .ql-btn.teal  { background: #52b788; color: white; }
+    .ql-btn.dark  { background: #1e3a8a; color: white; }
+    .ql-btn.green { background: #1a56db; color: white; }
+    .ql-btn.teal  { background: #3b82f6; color: white; }
     .ql-btn.orange{ background: #f4a261; color: white; }
-    .ql-btn.blue  { background: #457b9d; color: white; }
+    .ql-btn.blue  { background: #60a5fa; color: white; }
     .ql-btn.red   { background: #e63946; color: white; }
 
     .ql-btn:hover { opacity: 0.85; transform: translateY(-1px); }
@@ -241,14 +238,13 @@
         .dash-grid { grid-template-columns: repeat(2, 1fr); }
         .charts-grid { grid-template-columns: 1fr; }
         .admin-grid { grid-template-columns: repeat(2, 1fr); }
-    } 
-    
+    }
 </style>
 
 <!-- Page Header -->
 <div style="margin-bottom: 28px;">
-    <h2 style="font-family:'Fraunces',serif; font-size:1.7rem; color:#1b2d25; margin-bottom:4px;">📊 Dashboard</h2>
-    <p style="color:#6b8c78; font-size:0.9rem;">Welcome back! Here's what's happening at your hostel.</p>
+    <h2 style="font-family:'Fraunces',serif; font-size:1.7rem; color:#1e3a5f; margin-bottom:4px;">📊 Dashboard</h2>
+    <p style="color:#4b6cb7; font-size:0.9rem;">Welcome back! Here's what's happening at your hostel.</p>
 </div>
 
 <!-- Stats Cards -->
@@ -265,6 +261,7 @@
         <div class="stat-value">{{ rooms|default:"0" }}</div>
         <div class="stat-sub">Available rooms</div>
     </div>
+
     <div class="stat-card orange">
         <div class="stat-icon">📝</div>
         <div class="stat-label">Complaints</div>
@@ -282,7 +279,7 @@
 <!-- Charts -->
 <div class="charts-grid">
     <div class="chart-card">
-        <div class="chart-title"><i class="fas fa-chart-bar" style="color:#52b788;"></i> Hostel Overview</div>
+        <div class="chart-title"><i class="fas fa-chart-bar" style="color:#3b82f6;"></i> Hostel Overview</div>
         <canvas id="barChart"></canvas>
     </div>
     <div class="chart-card">
@@ -294,7 +291,7 @@
 <!-- Admin Panel -->
 <div class="admin-panel">
     <div class="admin-panel-header">
-        <h3><i class="fas fa-user-shield" style="color:#2d6a4f;"></i> Admin Panel</h3>
+        <h3><i class="fas fa-user-shield" style="color:#1a56db;"></i> Admin Panel</h3>
         <span class="admin-badge-pill">⚡ Admin Access</span>
     </div>
     <div class="admin-grid">
@@ -313,6 +310,13 @@
             <h4>Room Allotment</h4>
             <p>Manage room status</p>
         </a>
+
+        <a href="/allocate-room/" class="admin-action">
+            <div class="aa-icon">🛏️</div>
+            <h4>Room Allocation</h4>
+            <p>Allocate rooms to students</p>
+        </a>
+
         <a href="/fees/" class="admin-action">
             <div class="aa-icon">💰</div>
             <h4>Fee Management</h4>
@@ -347,14 +351,13 @@
 <!-- Recent Activities -->
 <div class="quick-links" style="margin-top:25px;">
     <div class="ql-title">📌 Recent Activities</div>
-
     <ul style="list-style:none; padding:0;">
         {% for activity in activities %}
-        <li style="padding:8px 0; border-bottom:1px solid #f0f7f2; color:#1b2d25;">
+        <li style="padding:8px 0; border-bottom:1px solid #eff6ff; color:#1e3a5f;">
             {{ activity.message }}
         </li>
         {% empty %}
-        <li style="color:#6b8c78;">No recent activity</li>
+        <li style="color:#4b6cb7;">No recent activity</li>
         {% endfor %}
     </ul>
 </div>
@@ -362,7 +365,6 @@
 <!-- Chart.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-    // Data from Django
     const students   = {{ students|default:0 }};
     const rooms      = {{ rooms|default:0 }};
     const complaints = {{ complaints|default:0 }};
@@ -370,7 +372,6 @@
     const resolved   = {{ resolved|default:0 }};
     const highPri    = {{ high_priority|default:0 }};
 
-    // Bar Chart
     new Chart(document.getElementById('barChart'), {
         type: 'bar',
         data: {
@@ -378,34 +379,27 @@
             datasets: [{
                 label: 'Count',
                 data: [students, rooms, complaints, fees],
-                backgroundColor: ['#52b788','#457b9d','#f4a261','#e63946'],
+                backgroundColor: ['#3b82f6','#60a5fa','#f4a261','#e63946'],
                 borderRadius: 8,
                 borderSkipped: false,
             }]
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: { display: false },
-            },
+            plugins: { legend: { display: false } },
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { stepSize: 1, color: '#6b8c78' },
-                    grid: { color: '#f0f7f2' }
+                    ticks: { stepSize: 1, color: '#4b6cb7' },
+                    grid: { color: '#eff6ff' }
                 },
                 x: {
-                    ticks: { color: '#6b8c78' },
+                    ticks: { color: '#4b6cb7' },
                     grid: { display: false }
                 }
             }
         }
     });
-
-    // Pie Chart
-    const pending = complaints;
-    const resolvedC = resolved;
-    const lowPri = Math.max(0, complaints - highPri);
 
     new Chart(document.getElementById('pieChart'), {
         type: 'doughnut',
@@ -413,11 +407,11 @@
             labels: ['Pending', 'Resolved', 'High Priority'],
             datasets: [{
                 data: [
-                    pending > 0 ? pending : 1,
-                    resolvedC > 0 ? resolvedC : 0,
+                    complaints > 0 ? complaints : 1,
+                    resolved > 0 ? resolved : 0,
                     highPri > 0 ? highPri : 0
                 ],
-                backgroundColor: ['#f4a261','#52b788','#e63946'],
+                backgroundColor: ['#f4a261','#3b82f6','#e63946'],
                 borderWidth: 3,
                 borderColor: '#fff',
             }]
@@ -428,7 +422,7 @@
             plugins: {
                 legend: {
                     position: 'bottom',
-                    labels: { color: '#1b2d25', font: { size: 12 }, padding: 16 }
+                    labels: { color: '#1e3a5f', font: { size: 12 }, padding: 16 }
                 }
             }
         }

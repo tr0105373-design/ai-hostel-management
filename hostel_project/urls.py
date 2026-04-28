@@ -44,4 +44,7 @@ urlpatterns = [
     path('student-complaint/', views.student_complaint, name='student_complaint'),
     path('visitor-request/', views.visitor_request, name='visitor_request'),
     path('my-fees/', views.my_fees, name='my_fees'),
+    path('allocate-room/', views.allocate_room, name='allocate_room'),
+    path('pay-fee/<int:fee_id>/', views.pay_fee, name='pay_fee'),
+    path('payment-success/', views.payment_success, name='payment_success'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

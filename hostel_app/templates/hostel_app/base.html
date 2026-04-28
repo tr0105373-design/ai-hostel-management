@@ -10,19 +10,19 @@
 <style>
 
 :root {
---primary:#2d6a4f;
---primary-light:#52b788;
---primary-pale:#d8f3dc;
+--primary:#1a56db;
+--primary-light:#3b82f6;
+--primary-pale:#dbeafe;
 --accent:#f4a261;
 --accent-dark:#e76f51;
---bg:#f8faf9;
+--bg:#f0f7ff;
 --surface:#ffffff;
---surface2:#f0f7f2;
---text:#1b2d25;
---text-muted:#6b8c78;
---border:#d4e8da;
+--surface2:#eff6ff;
+--text:#1e3a5f;
+--text-muted:#4b6cb7;
+--border:#bfdbfe;
 --danger:#e63946;
---shadow-sm:0 1px 4px rgba(45,106,79,0.08);
+--shadow-sm:0 1px 4px rgba(26,86,219,0.08);
 --radius:14px;
 --radius-sm:8px;
 }
@@ -37,16 +37,18 @@ color:var(--text);
 }
 
 .sidebar{
-width:260px;
-background:linear-gradient(180deg,#1b4332 0%,#2d6a4f 100%);
-min-height:100vh;
-position:fixed;
-left:0;
-top:0;
-z-index:100;
-display:flex;
-flex-direction:column;
-box-shadow:4px 0 20px rgba(27,67,50,0.25);
+width: 260px;
+    background: linear-gradient(180deg, #1e3a8a 0%, #1a56db 100%);
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 20px rgba(26,86,219,0.25);
+    height:100vh;
+    overflow-y: auto;  
 }
 
 .sidebar-brand{
@@ -86,7 +88,7 @@ color:rgba(255,255,255,0.5);
 .sidebar-nav{
 flex:1;
 padding:20px 16px;
-overflow-y:auto;
+
 }
 
 .nav-section{
@@ -129,8 +131,8 @@ color:white;
 }
 
 .sidebar-nav a.active{
-background:rgba(82,183,136,0.25);
-color:#74c69d;
+background:rgba(59,130,246,0.35);
+color:#93c5fd;
 }
 
 .sidebar-bottom{
@@ -266,66 +268,36 @@ border-top:1px solid var(--border);
 
 <div class="nav-section">
 <div class="nav-section-title">Main</div>
-
 <a href="/"><i class="fas fa-house"></i> Home</a>
-
 <a href="/dashboard/"><i class="fas fa-chart-line"></i> Dashboard</a>
-
 </div>
 
 <div class="nav-section">
-
 <div class="nav-section-title">Management</div>
-
 <a href="/add-student/"><i class="fas fa-user-plus"></i> Add Student</a>
-
 <a href="/students/"><i class="fas fa-users"></i> Students</a>
-
 <a href="/rooms/"><i class="fas fa-bed"></i> Rooms</a>
-
 <a href="/fees/"><i class="fas fa-money-bill-wave"></i> Fees</a>
-
+<a href="/allocate-room/"><i class="fas fa-door-open"></i> Room Allocation</a>
 </div>
 
 <div class="nav-section">
-
 <div class="nav-section-title">Support</div>
-
 <a href="/complaint/"><i class="fas fa-comment-dots"></i> Complaints</a>
-
 <a href="/visitor/"><i class="fas fa-door-open"></i> Visitors</a>
-
 </div>
 
 {% else %}
 
 <div class="nav-section">
-
 <div class="nav-section-title">Student</div>
+<a href="{% url 'student_dashboard' %}"><i class="fas fa-chart-line"></i> Dashboard</a>
+<a href="{% url 'student_profile' %}"><i class="fas fa-user"></i> My Profile</a>
+<a href="{% url 'my_room' %}"><i class="fas fa-bed"></i> My Room</a>
+<a href="{% url 'my_fees' %}"><i class="fas fa-money-bill-wave"></i> My Fees</a>
+<a href="{% url 'student_complaint' %}"><i class="fas fa-comment-dots"></i> Complaint</a>
+<a href="{% url 'visitor_request' %}"><i class="fas fa-door-open"></i> Visitors</a>
 
-<a href="{% url 'student_dashboard' %}">
-<i class="fas fa-chart-line"></i> Dashboard
-</a>
-
-<a href="{% url 'student_profile' %}">
-<i class="fas fa-user"></i> My Profile
-</a>
-
-<a href="{% url 'my_room' %}">
-<i class="fas fa-bed"></i> My Room
-</a>
-
-<a href="{% url 'my_fees' %}">
-<i class="fas fa-money-bill-wave"></i> My Fees
-</a>
-
-<a href="{% url 'student_complaint' %}">
-<i class="fas fa-comment-dots"></i> Complaint
-</a>
-
-<a href="{% url 'visitor_request' %}">
-<i class="fas fa-door-open"></i> Visitors
-</a>
 
 </div>
 
@@ -336,42 +308,16 @@ border-top:1px solid var(--border);
 <div class="sidebar-bottom">
 
 <div class="admin-badge">
-
-<div class="admin-avatar">
-
-<i class="fas fa-user-shield"></i>
-
-</div>
-
+<div class="admin-avatar"><i class="fas fa-user-shield"></i></div>
 <div class="admin-info">
-
 <h4>{{ request.user.username|default:"User" }}</h4>
-
-<span>
-
-{% if request.user.is_staff %}
-
-Administrator
-
-{% else %}
-
-Student
-
-{% endif %}
-
-</span>
-
+<span>{% if request.user.is_staff %}Administrator{% else %}Student{% endif %}</span>
 </div>
-
 </div>
 
 <a href="{% url 'logout' %}" class="logout-btn">
-
-<i class="fas fa-sign-out-alt"></i>
-
-Sign Out
-
-</a>
+<i class="fas fa-sign-out-alt"></i> Sign Out
+</a> 
 
 </div>
 
@@ -380,61 +326,36 @@ Sign Out
 <div class="main-content">
 
 <div class="topbar">
-
 <h3>🏠 AI Hostel Management</h3>
-
 <div class="topbar-time" id="topbar-time"></div>
-
 </div>
 
 <div class="page-content">
-
 {% block content %}{% endblock %}
-
 </div>
 
-<div class="footer">
-
-© 2026 AI Hostel Management System
+<div class="footer">© 2026 AI Hostel Management System</div>
 
 </div>
-
-</div>
-
 </div>
 
 <script>
-
 function updateTime(){
-
 const now=new Date();
-
 document.getElementById('topbar-time').textContent=
-
 now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true})
-
 +' — '+
-
 now.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
-
 }
-
 updateTime();
-
 setInterval(updateTime,1000);
 
 const path=window.location.pathname;
-
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{
-
 if(a.getAttribute('href')===path)
-
 a.classList.add('active');
-
 });
-
 </script>
 
 </body>
-
 </html>
